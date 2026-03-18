@@ -615,9 +615,66 @@ input, select, textarea { font-family:inherit; }
   </div>
 </div>
 
-<!-- SCRIPTS — tidak load global.js karena menyebabkan nav{} override sidebar -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="../assets/js/global.js"></script>
+<script>
+/* ── GLOBAL UTILITIES (inline — tidak bergantung file eksternal) ── */
+const SUPABASE_URL  = 'https://dhfelzylnicdskzibsqx.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_anhuhVrAepwy4EcS5nMunQ_rYBSgBGH';
+const ADMIN_EMAIL   = 'ytpremmalang10@gmail.com';
+const WA_NUMBER     = '6281234567890';
+let sb;
+function initSupabase() {
+  if (typeof supabase !== 'undefined' && supabase.createClient) {
+    sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  }
+  return sb;
+}
+const fmt  = n => (n || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+const disc = p => p.price_ori > p.price ? Math.round((1 - p.price / p.price_ori) * 100) : 0;
+function getWishlist() { try { return JSON.parse(localStorage.getItem('gr_wishlist') || '[]'); } catch { return []; } }
+function saveWishlist(list) { localStorage.setItem('gr_wishlist', JSON.stringify(list)); }
+function toggleWishlistItem(id, onSuccess) {
+  const list = getWishlist();
+  const idx  = list.indexOf(id);
+  if (idx === -1) { list.push(id); } else { list.splice(idx, 1); }
+  saveWishlist(list);
+  if (onSuccess) onSuccess(list);
+}
+function showToast(msg, type = 'info') {
+  const icons = { ok: '✅', err: '❌', info: 'ℹ️' };
+  let wrap = document.getElementById('toastWrap');
+  if (!wrap) { wrap = document.createElement('div'); wrap.id = 'toastWrap'; wrap.className = 'toast-wrap'; document.body.appendChild(wrap); }
+  const el = document.createElement('div');
+  el.className = 'toast t-' + type;
+  el.innerHTML = '<span style="flex-shrink:0">' + (icons[type]||'') + '</span><span>' + msg + '</span>';
+  wrap.appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(12px)'; setTimeout(() => el.remove(), 300); }, 3200);
+}
+async function doLogout() { if (!sb) return; await sb.auth.signOut(); window.location.href = '../index.html'; }
+function loadAssetWithFallback(el, localPath, storagePath) {
+  if (!el) return;
+  el.src = localPath;
+  el.onerror = () => {
+    if (!sb) { el.onerror = null; return; }
+    const { data } = sb.storage.from('assets').getPublicUrl(storagePath);
+    el.src = data.publicUrl; el.onerror = null;
+  };
+}
+function animateCounter(elId, target, duration = 1500) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const start = performance.now();
+  const step = ts => {
+    const progress = Math.min((ts - start) / duration, 1);
+    el.textContent = Math.floor(progress * target);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  };
+  requestAnimationFrame(step);
+}
+window.doLogout = doLogout;
+window.showToast = showToast;
+</script>
 <script src="../assets/js/admin.js"></script>
 </body>
 </html>
