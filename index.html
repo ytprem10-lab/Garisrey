@@ -1,218 +1,389 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Garisrey — From East to Peace</title>
-  <meta name="description" content="Garisrey — Brand Fashion Lokal Indonesia. From East to Peace. Denim Culture, Local Pride."/>
-  <link rel="stylesheet" href="assets/css/global.css"/>
-  <link rel="stylesheet" href="assets/css/index.css"/>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Garisrey — From East to Peace</title>
+    <meta
+      name="description"
+      content="Garisrey — Brand Fashion Lokal Indonesia. From East to Peace. Denim Culture, Local Pride."
+    />
+    <link rel="stylesheet" href="assets/css/global.css" />
+    <link rel="stylesheet" href="assets/css/index.css" />
+  </head>
+  <body>
+    <!-- LOADING SCREEN -->
+    <div id="pageLoader" aria-hidden="true">
+      <div class="pl-corner tl"></div>
+      <div class="pl-corner tr"></div>
+      <div class="pl-corner bl"></div>
+      <div class="pl-corner br"></div>
+      <div class="pl-logo-wrap">
+        <div class="pl-ring"></div>
+        <img
+          class="pl-logo"
+          src="assets/logo/logo.png"
+          alt="Garisrey"
+          onerror="
+            this.style.display = 'none';
+            document.querySelector('.pl-wordmark').style.display = 'block';
+          "
+        />
+        <span class="pl-wordmark" style="display: none"
+          >Garis<span>rey.</span></span
+        >
+      </div>
+      <div class="pl-tagline">From East to Peace</div>
+      <div class="pl-bar-wrap"><div class="pl-bar"></div></div>
+      <div class="pl-pct" id="plPct">0%</div>
+    </div>
 
-<!-- LOADING SCREEN -->
-<div id="pageLoader" aria-hidden="true">
-  <div class="pl-corner tl"></div>
-  <div class="pl-corner tr"></div>
-  <div class="pl-corner bl"></div>
-  <div class="pl-corner br"></div>
-  <div class="pl-logo-wrap">
-    <div class="pl-ring"></div>
-    <img class="pl-logo" src="assets/logo/logo.png" alt="Garisrey"
-      onerror="this.style.display='none';document.querySelector('.pl-wordmark').style.display='block'"/>
-    <span class="pl-wordmark" style="display:none">Garis<span>rey.</span></span>
-  </div>
-  <div class="pl-tagline">From East to Peace</div>
-  <div class="pl-bar-wrap"><div class="pl-bar"></div></div>
-  <div class="pl-pct" id="plPct">0%</div>
-</div>
+    <!-- TOAST -->
+    <div class="toast-wrap" id="toastWrap"></div>
 
-<!-- TOAST -->
-<div class="toast-wrap" id="toastWrap"></div>
-
-<!-- NAV — tanpa link About -->
-<nav id="navbar">
-  <div style="display:flex;align-items:center;gap:14px">
-    <img class="nav-logo" id="navLogo" src="assets/logo/logo.png" alt="Garisrey"
-      onerror="this.style.display='none';document.getElementById('navWordmark').style.display='block'"/>
-    <span class="nav-wordmark" id="navWordmark" style="display:none">Garis<span>rey.</span></span>
-  </div>
-  <div class="nav-links">
-    <span class="nav-lnk on">Beranda</span>
-    <a class="nav-lnk" href="pages/shop.html">Shop</a>
-  </div>
-  <div class="nav-right">
-    <div class="acc-wrap" id="accWrap" style="display:none">
-      <button class="acc-btn" onclick="toggleAccMenu()" aria-label="Akun">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/></svg>
-      </button>
-      <div class="acc-menu" id="accMenu">
-        <div class="acc-menu-head">
-          <div class="acc-menu-name" id="accMenuName">Pengguna</div>
-          <div class="acc-menu-email" id="accMenuEmail"></div>
+    <!-- NAV — tanpa link About -->
+    <nav id="navbar">
+      <div style="display: flex; align-items: center; gap: 14px">
+        <img
+          class="nav-logo"
+          id="navLogo"
+          src="assets/logo/logo.png"
+          alt="Garisrey"
+          onerror="
+            this.style.display = 'none';
+            document.getElementById('navWordmark').style.display = 'block';
+          "
+        />
+        <span class="nav-wordmark" id="navWordmark" style="display: none"
+          >Garis<span>rey.</span></span
+        >
+      </div>
+      <div class="nav-links">
+        <span class="nav-lnk on">Beranda</span>
+        <a class="nav-lnk" href="pages/shop.html">Shop</a>
+      </div>
+      <div class="nav-right">
+        <div class="acc-wrap" id="accWrap" style="display: none">
+          <button class="acc-btn" onclick="toggleAccMenu()" aria-label="Akun">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M20 21a8 8 0 10-16 0" />
+            </svg>
+          </button>
+          <div class="acc-menu" id="accMenu">
+            <div class="acc-menu-head">
+              <div class="acc-menu-name" id="accMenuName">Pengguna</div>
+              <div class="acc-menu-email" id="accMenuEmail"></div>
+            </div>
+            <a class="acc-menu-item" href="pages/shop.html">
+              <svg viewBox="0 0 24 24">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 01-8 0" />
+              </svg>
+              Lihat Toko
+            </a>
+            <div class="acc-menu-div"></div>
+            <button class="acc-menu-item danger" onclick="doLogout()">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              Keluar
+            </button>
+          </div>
         </div>
-        <a class="acc-menu-item" href="pages/shop.html">
-          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-          Lihat Toko
-        </a>
-        <div class="acc-menu-div"></div>
-        <button class="acc-menu-item danger" onclick="doLogout()">
-          <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-          Keluar
-        </button>
+        <a class="nav-cta" href="pages/login.html" id="navAuthBtn"
+          >Masuk / Daftar</a
+        >
+        <div class="ham" id="hamBtn" onclick="toggleDrawer()">
+          <span></span><span></span><span></span>
+        </div>
       </div>
+    </nav>
+
+    <!-- DRAWER — tanpa link About -->
+    <div id="drawer">
+      <span class="dr-lnk on">Beranda</span>
+      <a class="dr-lnk" href="pages/shop.html">Shop</a>
+      <a class="dr-lnk" id="drLogin" href="pages/login.html">Masuk / Daftar</a>
+      <span
+        class="dr-lnk"
+        id="drLogout"
+        style="display: none"
+        onclick="doLogout()"
+        >Keluar</span
+      >
+      <a
+        class="dr-lnk dr-cta"
+        href="https://wa.me/6281234567890"
+        target="_blank"
+        >Order via WA</a
+      >
     </div>
-    <a class="nav-cta" href="pages/login.html" id="navAuthBtn">Masuk / Daftar</a>
-    <div class="ham" id="hamBtn" onclick="toggleDrawer()">
-      <span></span><span></span><span></span>
+
+    <!-- MARQUEE -->
+    <div class="marquee marquee-top">
+      <div class="mq-track" id="mqTrack"></div>
     </div>
-  </div>
-</nav>
 
-<!-- DRAWER — tanpa link About -->
-<div id="drawer">
-  <span class="dr-lnk on">Beranda</span>
-  <a class="dr-lnk" href="pages/shop.html">Shop</a>
-  <a class="dr-lnk" id="drLogin" href="pages/login.html">Masuk / Daftar</a>
-  <span class="dr-lnk" id="drLogout" style="display:none" onclick="doLogout()">Keluar</span>
-  <a class="dr-lnk dr-cta" href="https://wa.me/6281234567890" target="_blank">Order via WA</a>
-</div>
-
-<!-- MARQUEE -->
-<div class="marquee marquee-top">
-  <div class="mq-track" id="mqTrack"></div>
-</div>
-
-<!-- SECTION 1: KOLEKSI TERKINI sebagai hero section penuh -->
-<section class="latest-hero" id="latest">
-  <div class="latest-hero-inner">
-    <div class="latest-hero-head">
-      <div class="section-tag">Produk Terbaru</div>
-      <div class="latest-hero-title-row">
-        <h2 class="section-title">Koleksi <em>Terkini.</em></h2>
-        <a class="view-all" href="pages/shop.html">Lihat Semua →</a>
+    <!-- SECTION 1: KOLEKSI TERKINI sebagai hero section penuh -->
+    <section class="latest-hero" id="latest">
+      <div class="latest-hero-inner">
+        <div class="latest-hero-head">
+          <div class="section-tag">Produk Terbaru</div>
+          <div class="latest-hero-title-row">
+            <h2 class="section-title">Koleksi <em>Terkini.</em></h2>
+            <a class="view-all" href="pages/shop.html">Lihat Semua →</a>
+          </div>
+        </div>
+        <div id="loadingState" style="text-align: center; padding: 80px 0">
+          <div class="dots-loader"><span></span><span></span><span></span></div>
+          <p
+            style="
+              font-size: 10px;
+              color: var(--gray);
+              letter-spacing: 0.2em;
+              text-transform: uppercase;
+              margin-top: 12px;
+            "
+          >
+            Memuat produk...
+          </p>
+        </div>
+        <div class="prods-grid" id="prodsGrid" style="display: none"></div>
       </div>
-    </div>
-    <div id="loadingState" style="text-align:center;padding:80px 0">
-      <div class="dots-loader"><span></span><span></span><span></span></div>
-      <p style="font-size:10px;color:var(--gray);letter-spacing:.2em;text-transform:uppercase;margin-top:12px">Memuat produk...</p>
-    </div>
-    <div class="prods-grid" id="prodsGrid" style="display:none"></div>
-  </div>
-</section>
+    </section>
 
-<!-- SECTION 2: HERO (dipindah dari atas) -->
-<section class="hero" id="heroSection">
-  <div class="hero-bg" id="heroBg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-side-text">SS 2025 — DENIM CULTURE — LOCAL PRIDE</div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">New Collection 2025</div>
-    <h1 class="hero-title">Garis<em>rey.</em></h1>
-    <p class="hero-sub">Brand fashion lokal Indonesia.<br>Dibangun dari identitas, semangat, dan keberanian.</p>
-    <div class="hero-btns">
-      <a class="btn btn-red" href="pages/shop.html">Lihat Koleksi</a>
-      <a class="btn btn-outline" href="https://wa.me/6281234567890" target="_blank">Order via WA</a>
-    </div>
-  </div>
-  <div class="hero-scroll">
-    <div class="hero-scroll-line"></div>
-    <span>Scroll</span>
-  </div>
-</section>
-
-<!-- SECTION 3: ABOUT / BRAND STORY -->
-<section class="about-sec" id="about">
-  <div class="about-inner">
-    <div class="about-img-wrap">
-      <img class="about-img-main" id="aboutImg1" src="assets/img/2.jpeg" alt="Garisrey Brand" style="background:var(--black3);min-height:400px"/>
-      <img class="about-img-accent" id="aboutImg2" src="assets/img/3.jpeg" alt="Garisrey Detail" style="background:var(--black3)"/>
-      <div class="about-tag-wrap"><div class="about-tag-txt">Est. 2025</div></div>
-    </div>
-    <div class="about-text">
-      <div class="section-tag">From East to Peace</div>
-      <h2 class="section-title">Brand Lokal<br><em>Penuh Jiwa.</em></h2>
-      <p class="about-desc">Garisrey lahir dari semangat anak muda Indonesia Timur yang ingin berbicara lewat fashion. Setiap jahitan adalah ekspresi, setiap detail adalah cerita. Kami percaya pakaian bukan sekadar kain — ia adalah identitas.</p>
-      <div class="about-stats">
-        <div><div class="stat-num" id="statProds">0</div><div class="stat-lbl">Produk Aktif</div></div>
-        <div><div class="stat-num">100%</div><div class="stat-lbl">Made in ID</div></div>
-        <div><div class="stat-num">SS25</div><div class="stat-lbl">Koleksi Kini</div></div>
+    <!-- SECTION 2: HERO (dipindah dari atas) -->
+    <section class="hero" id="heroSection">
+      <div class="hero-bg" id="heroBg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-side-text">SS 2025 — DENIM CULTURE — LOCAL PRIDE</div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">New Collection 2025</div>
+        <h1 class="hero-title">Garis<em>rey.</em></h1>
+        <p class="hero-sub">
+          Brand fashion lokal Indonesia.<br />Dibangun dari identitas, semangat,
+          dan keberanian.
+        </p>
+        <div class="hero-btns">
+          <a class="btn btn-red" href="pages/shop.html">Lihat Koleksi</a>
+          <a
+            class="btn btn-outline"
+            href="https://wa.me/6281234567890"
+            target="_blank"
+            >Order via WA</a
+          >
+        </div>
       </div>
-      <a class="btn btn-red" href="pages/shop.html">Jelajahi Koleksi</a>
+      <div class="hero-scroll">
+        <div class="hero-scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- SECTION 3: ABOUT / BRAND STORY -->
+    <section class="about-sec" id="about">
+      <div class="about-inner">
+        <div class="about-img-wrap">
+          <img
+            class="about-img-main"
+            id="aboutImg1"
+            src="assets/img/2.jpeg"
+            alt="Garisrey Brand"
+            style="background: var(--black3); min-height: 400px"
+          />
+          <img
+            class="about-img-accent"
+            id="aboutImg2"
+            src="assets/img/3.jpeg"
+            alt="Garisrey Detail"
+            style="background: var(--black3)"
+          />
+          <div class="about-tag-wrap">
+            <div class="about-tag-txt">Est. 2025</div>
+          </div>
+        </div>
+        <div class="about-text">
+          <div class="section-tag">From East to Peace</div>
+          <h2 class="section-title">Brand Lokal<br /><em>Penuh Jiwa.</em></h2>
+          <p class="about-desc">
+            Garisrey lahir dari semangat anak muda Jakarta Timur yang ingin
+            berbicara lewat fashion. Setiap jahitan adalah ekspresi, setiap
+            detail adalah cerita. Kami percaya pakaian bukan sekadar kain — ia
+            adalah identitas.
+          </p>
+          <div class="about-stats">
+            <div>
+              <div class="stat-num" id="statProds">0</div>
+              <div class="stat-lbl">Produk Aktif</div>
+            </div>
+            <div>
+              <div class="stat-num">100%</div>
+              <div class="stat-lbl">Made in ID</div>
+            </div>
+            <div>
+              <div class="stat-num">SS25</div>
+              <div class="stat-lbl">Koleksi Kini</div>
+            </div>
+          </div>
+          <a class="btn btn-red" href="pages/shop.html">Jelajahi Koleksi</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="cta-band">
+      <div class="cta-band-inner">
+        <h2 class="cta-band-title">
+          Siap pakai <em>Garisrey?</em><br />Order sekarang.
+        </h2>
+        <a
+          class="btn btn-white"
+          href="https://wa.me/6282122128729"
+          target="_blank"
+          >Order via WhatsApp</a
+        >
+      </div>
+    </section>
+
+    <!-- STICKER SHOWCASE — hanya 1 gambar stiker, ukuran besar -->
+    <section class="sticker-sec">
+      <div class="sticker-inner">
+        <div class="sticker-label">Official Sticker</div>
+        <div class="sticker-img-wrap">
+          <img
+            id="lgStiker"
+            src="assets/logo/stiker.png"
+            alt="Garisrey Stiker"
+            onerror="
+              this.src = 'assets/logo/logo.png';
+              this.onerror = null;
+            "
+          />
+        </div>
+        <div class="sticker-sub">Garisrey — From East to Peace</div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="foot-inner">
+        <div class="foot-grid">
+          <div>
+            <img
+              class="foot-brand-logo"
+              id="footLogo"
+              src="assets/logo/logotransparan.png"
+              alt="Garisrey"
+              onerror="this.style.display = 'none'"
+            />
+            <div class="foot-brand-tagline">From East to Peace</div>
+            <p class="foot-brand-desc">
+              Brand fashion lokal Indonesia. Dibangun dari identitas, semangat,
+              dan keberanian.
+            </p>
+          </div>
+          <div class="foot-col">
+            <h4>Halaman</h4>
+            <span onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+              >Beranda</span
+            >
+            <a href="pages/shop.html">Shop</a>
+          </div>
+          <div class="foot-col">
+            <h4>Produk</h4>
+            <div id="footProds"></div>
+          </div>
+          <div class="foot-col">
+            <h4>Kontak</h4>
+            <a href="https://wa.me/6281234567890" target="_blank">WhatsApp</a>
+            <a href="https://instagram.com/garisrey.studio" target="_blank"
+              >Instagram</a
+            >
+            <a href="https://tiktok.com/@garisrey" target="_blank">TikTok</a>
+          </div>
+        </div>
+        <div class="foot-bot">
+          <span class="foot-copy"
+            >© 2025 Garisrey. Made with ❤️ in Indonesia.</span
+          >
+          <div class="foot-soc">
+            <a
+              class="soc-btn"
+              href="https://wa.me/6281234567890"
+              target="_blank"
+              title="WhatsApp"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.855L.057 23.882a.5.5 0 00.61.633l6.234-1.638A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"
+                />
+              </svg>
+            </a>
+            <a
+              class="soc-btn"
+              href="https://instagram.com/garisrey.studio"
+              target="_blank"
+              title="Instagram"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </a>
+            <a
+              class="soc-btn"
+              href="https://shopee.co.id/garisrey"
+              target="_blank"
+              title="Shopee"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M19.5 7.5h-1.2C17.9 4.46 15.24 2 12 2S6.1 4.46 5.7 7.5H4.5C3.12 7.5 2 8.62 2 10v9c0 1.38 1.12 2.5 2.5 2.5h15c1.38 0 2.5-1.12 2.5-2.5v-9c0-1.38-1.12-2.5-2.5-2.5zM12 4c2.07 0 3.8 1.54 4.17 3.5H7.83C8.2 5.54 9.93 4 12 4zm1.5 9.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5V12h-2v1.5C8.5 15.43 10.07 17 12 17s3.5-1.57 3.5-3.5V12h-2v1.5z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- PRODUCT MODAL -->
+    <div
+      class="modal-bg"
+      id="modalBg"
+      style="display: none"
+      onclick="if (event.target === this) closeProductModal();"
+    >
+      <div class="modal-box" id="modalBox"></div>
     </div>
-  </div>
-</section>
 
-<!-- CTA BAND -->
-<section class="cta-band">
-  <div class="cta-band-inner">
-    <h2 class="cta-band-title">Siap pakai <em>Garisrey?</em><br>Order sekarang.</h2>
-    <a class="btn btn-white" href="https://wa.me/6281234567890" target="_blank">Order via WhatsApp</a>
-  </div>
-</section>
-
-<!-- STICKER SHOWCASE — hanya 1 gambar stiker, ukuran besar -->
-<section class="sticker-sec">
-  <div class="sticker-inner">
-    <div class="sticker-label">Official Sticker</div>
-    <div class="sticker-img-wrap">
-      <img id="lgStiker" src="assets/logo/stiker.png" alt="Garisrey Stiker"
-        onerror="this.src='assets/logo/logo.png';this.onerror=null"/>
-    </div>
-    <div class="sticker-sub">Garisrey — From East to Peace</div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="foot-inner">
-    <div class="foot-grid">
-      <div>
-        <img class="foot-brand-logo" id="footLogo" src="assets/logo/logotransparan.png" alt="Garisrey" onerror="this.style.display='none'"/>
-        <div class="foot-brand-tagline">From East to Peace</div>
-        <p class="foot-brand-desc">Brand fashion lokal Indonesia. Dibangun dari identitas, semangat, dan keberanian.</p>
-      </div>
-      <div class="foot-col">
-        <h4>Halaman</h4>
-        <span onclick="window.scrollTo({top:0,behavior:'smooth'})">Beranda</span>
-        <a href="pages/shop.html">Shop</a>
-      </div>
-      <div class="foot-col">
-        <h4>Produk</h4>
-        <div id="footProds"></div>
-      </div>
-      <div class="foot-col">
-        <h4>Kontak</h4>
-        <a href="https://wa.me/6281234567890" target="_blank">WhatsApp</a>
-        <a href="https://instagram.com/garisrey" target="_blank">Instagram</a>
-        <a href="https://tiktok.com/@garisrey" target="_blank">TikTok</a>
-      </div>
-    </div>
-    <div class="foot-bot">
-      <span class="foot-copy">© 2025 Garisrey. Made with ❤️ in Indonesia.</span>
-      <div class="foot-soc">
-        <a class="soc-btn" href="https://wa.me/6281234567890" target="_blank" title="WhatsApp">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.855L.057 23.882a.5.5 0 00.61.633l6.234-1.638A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-        </a>
-        <a class="soc-btn" href="https://instagram.com/garisrey" target="_blank" title="Instagram">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </a>
-        <a class="soc-btn" href="https://shopee.co.id/garisrey" target="_blank" title="Shopee">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 7.5h-1.2C17.9 4.46 15.24 2 12 2S6.1 4.46 5.7 7.5H4.5C3.12 7.5 2 8.62 2 10v9c0 1.38 1.12 2.5 2.5 2.5h15c1.38 0 2.5-1.12 2.5-2.5v-9c0-1.38-1.12-2.5-2.5-2.5zM12 4c2.07 0 3.8 1.54 4.17 3.5H7.83C8.2 5.54 9.93 4 12 4zm1.5 9.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5V12h-2v1.5C8.5 15.43 10.07 17 12 17s3.5-1.57 3.5-3.5V12h-2v1.5z"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- PRODUCT MODAL -->
-<div class="modal-bg" id="modalBg" style="display:none" onclick="if(event.target===this)closeProductModal()">
-  <div class="modal-box" id="modalBox"></div>
-</div>
-
-<!-- SCRIPTS -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="assets/js/global.js"></script>
-<script src="assets/js/index.js"></script>
-</body>
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/index.js"></script>
+  </body>
 </html>

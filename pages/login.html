@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Masuk — Garisrey</title>
+  <link rel="stylesheet" href="../assets/css/global.css"/>
+  <link rel="stylesheet" href="../assets/css/login.css"/>
+</head>
+<body class="login-page">
+
+<!-- PAGE LOADER -->
+<div id="pgLoader">
+  <img class="loader-logo" src="../assets/logo/logotransparan.png" alt="Garisrey"
+    onerror="this.src='../assets/logo/logo.png';this.onerror=null"/>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- LEFT PANEL -->
+<div class="panel-left">
+  <div class="panel-bg" id="panelBg"></div>
+  <div class="panel-overlay"></div>
+  <div class="panel-content">
+    <a class="panel-brand" href="../index.html">
+      <img class="panel-logo" src="../assets/logo/logotransparan.png" alt="Garisrey"
+        onerror="this.style.display='none'"/>
+      <span class="panel-wordmark">Garis<span>rey.</span></span>
+    </a>
+    <div>
+      <h2 class="panel-quote">From East<br>to <em>Peace.</em></h2>
+      <p class="panel-sub">Brand fashion lokal Indonesia</p>
+      <div class="panel-tags">
+        <span class="panel-tag">Denim Culture</span>
+        <span class="panel-tag">Local Pride</span>
+        <span class="panel-tag">SS 2025</span>
+        <span class="panel-tag">Made in ID</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="panel-right">
+  <div class="form-wrap">
+    <div class="form-eyebrow">Member Area</div>
+    <h1 class="form-title">Selamat<br><em>Datang.</em></h1>
+    <p class="form-desc">Masuk untuk order lebih mudah<br>dan akses koleksi eksklusif.</p>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab on" id="tabMasuk" onclick="switchTab('masuk')">Masuk</button>
+      <button class="tab" id="tabDaftar" onclick="switchTab('daftar')">Daftar</button>
+    </div>
+
+    <!-- ALERT -->
+    <div class="alert" id="alertBox"></div>
+
+    <!-- EMAIL -->
+    <div class="field">
+      <label for="emailIn">Email</label>
+      <div class="field-inp-wrap">
+        <input type="email" id="emailIn" placeholder="nama@email.com"
+          autocomplete="email" onkeydown="if(event.key==='Enter')doAuth()"/>
+      </div>
+    </div>
+
+    <!-- PASSWORD -->
+    <div class="field">
+      <label for="passIn">Password</label>
+      <div class="field-inp-wrap">
+        <input type="password" id="passIn" placeholder="Minimal 6 karakter"
+          autocomplete="current-password" onkeydown="onPassKey(event)"/>
+        <button class="toggle-pass" type="button" onclick="togglePass(this)">SHOW</button>
+      </div>
+      <!-- Password strength (hanya daftar) -->
+      <div id="strengthWrap" style="display:none">
+        <div class="strength-bar">
+          <div class="strength-seg" id="sg1"></div>
+          <div class="strength-seg" id="sg2"></div>
+          <div class="strength-seg" id="sg3"></div>
+          <div class="strength-seg" id="sg4"></div>
+        </div>
+        <div class="strength-txt" id="strengthTxt"></div>
+      </div>
+    </div>
+
+    <!-- KONFIRMASI (hanya daftar) -->
+    <div class="field" id="confirmField" style="display:none">
+      <label for="confirmIn">Konfirmasi Password</label>
+      <div class="field-inp-wrap">
+        <input type="password" id="confirmIn" placeholder="Ulangi password"
+          autocomplete="new-password" onkeydown="if(event.key==='Enter')doAuth()"/>
+      </div>
+    </div>
+
+    <!-- LUPA PASSWORD -->
+    <span class="forgot" id="forgotLink" onclick="doForgot()">Lupa password?</span>
+
+    <!-- SUBMIT -->
+    <button class="btn-submit" id="authBtn" onclick="doAuth()" type="button">
+      <div class="spin-sm"></div>
+      <span class="btn-txt" id="btnTxt">Masuk →</span>
+    </button>
+
+    <div class="divider">atau</div>
+
+    <a class="btn-ghost-full" href="shop.html">Lihat Toko Tanpa Login</a>
+    <a class="back-link" href="../index.html">← Kembali ke Beranda</a>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../assets/js/global.js"></script>
+<script src="../assets/js/login.js"></script>
+</body>
+</html>
