@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop — Garisrey</title>
+  <meta name="description" content="Garisrey Shop — Koleksi lengkap brand fashion lokal Indonesia."/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{
+      --red:#CC0000;--red-dk:#990000;--red-lt:rgba(204,0,0,.08);
+      --black:#080808;--black2:#111;--black3:#1a1a1a;--black4:#222;
+      --white:#FAFAFA;--gray:#777;--gray2:#444;
+      --nav-h:70px;--px:48px;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:'Space Mono',monospace;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6}
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+    ::-webkit-scrollbar{width:2px}::-webkit-scrollbar-thumb{background:var(--red)}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:600;display:flex;align-items:center;justify-content:space-between;padding:0 var(--px);background:rgba(8,8,8,.97);border-bottom:1px solid rgba(204,0,0,.1);backdrop-filter:blur(20px)}
+    .nav-logo{height:26px;width:auto;object-fit:contain;filter:brightness(0) invert(1)}
+    .nav-wordmark{font-family:'DM Serif Display',serif;font-style:italic;font-size:20px}
+    .nav-wordmark span{color:var(--red)}
+    .nav-links{display:flex;align-items:center;gap:2px}
+    .nav-lnk{padding:8px 14px;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4);border-radius:2px;transition:color .2s;cursor:pointer}
+    .nav-lnk:hover,.nav-lnk.on{color:var(--white)}
+    .nav-right{display:flex;align-items:center;gap:10px}
+    .nav-cta{padding:9px 20px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:var(--red);color:var(--white);border-radius:2px;transition:all .25s;border:1px solid var(--red)}
+    .nav-cta:hover{background:transparent;color:var(--red)}
+    .nav-user{display:flex;align-items:center;gap:8px}
+    .nav-uname{font-size:9px;color:var(--gray);letter-spacing:.1em}
+    .btn-ghost{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:6px 12px;border:1px solid rgba(255,255,255,.08);border-radius:2px;transition:all .2s}
+    .btn-ghost:hover{color:var(--red);border-color:rgba(204,0,0,.4)}
+    .ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+    .ham span{display:block;width:22px;height:1.5px;background:var(--white);transition:transform .3s,opacity .3s}
+    .ham.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    .ham.open span:nth-child(2){opacity:0}
+    .ham.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+    /* DRAWER */
+    #drawer{position:fixed;inset:0;z-index:550;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
+    #drawer.open{transform:none}
+    .dr-lnk{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);padding:16px 48px;transition:color .2s;cursor:pointer}
+    .dr-lnk:hover,.dr-lnk.on{color:var(--white)}
+    .dr-cta{margin-top:20px;background:var(--red);color:var(--white)!important;border-radius:2px}
+
+    /* MARQUEE */
+    .marquee{overflow:hidden;background:var(--red);padding:10px 0}
+    .mq-track{display:flex;white-space:nowrap;animation:mq 32s linear infinite}
+    .mq-item{font-size:9px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;padding:0 28px}
+    .mq-sep{display:inline-block;margin:0 4px;opacity:.5}
+    @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* PAGE HEADER */
+    .page-header{padding:calc(var(--nav-h) + 50px) var(--px) 40px;background:var(--black2);border-bottom:1px solid rgba(255,255,255,.04)}
+    .page-header-inner{max-width:1200px;margin:0 auto}
+    .pg-eyebrow{display:flex;align-items:center;gap:10px;font-size:8px;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+    .pg-eyebrow::before{content:'';width:24px;height:1px;background:var(--red)}
+    .pg-title{font-family:'DM Serif Display',serif;font-size:clamp(36px,6vw,68px);line-height:.95;margin-bottom:6px}
+    .pg-title span{color:var(--red)}
+    .pg-count{font-size:10px;color:var(--gray);letter-spacing:.12em;margin-top:8px}
+
+    /* CHARTS SECTION */
+    .charts-sec{padding:48px var(--px);background:var(--black2);border-bottom:1px solid rgba(255,255,255,.04)}
+    .charts-inner{max-width:1200px;margin:0 auto}
+    .charts-head{margin-bottom:28px}
+    .charts-title{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:4px}
+    .charts-sub{font-size:10px;color:var(--gray);letter-spacing:.08em}
+    .charts-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px}
+    .chart-card{background:var(--black3);border:1px solid rgba(255,255,255,.05);border-radius:4px;padding:22px}
+    .chart-card-title{font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    .chart-card-title::before{content:'';width:3px;height:12px;background:var(--red);border-radius:2px;flex-shrink:0}
+    .chart-wrap{position:relative}
+    .chart-wrap canvas{max-height:200px}
+    .stat-cards{display:flex;flex-direction:column;gap:12px}
+    .stat-card{background:var(--black3);border:1px solid rgba(255,255,255,.05);border-radius:4px;padding:18px 20px}
+    .stat-card-lbl{font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+    .stat-card-val{font-family:'DM Serif Display',serif;font-size:32px;line-height:1;color:var(--white);margin-bottom:3px}
+    .stat-card-sub{font-size:9px;color:var(--gray)}
+    .stat-card-trend{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;margin-top:6px}
+    .trend-up{color:#22c55e}.trend-down{color:var(--red)}
+
+    /* CONTROLS */
+    .controls{background:var(--black2);border-bottom:1px solid rgba(255,255,255,.04);padding:14px var(--px);position:sticky;top:var(--nav-h);z-index:100}
+    .ctrl-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .search-box{position:relative;flex:1;min-width:180px;max-width:280px}
+    .search-box svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:12px;height:12px;stroke:var(--gray);fill:none}
+    .search-box input{width:100%;background:var(--black3);border:1px solid rgba(255,255,255,.06);color:var(--white);padding:9px 30px 9px 32px;font-size:11px;border-radius:2px;outline:none;transition:border-color .2s;font-family:inherit}
+    .search-box input:focus{border-color:var(--red)}
+    .s-clr{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--gray);cursor:pointer;display:none}
+    .s-clr.show{display:block}
+    .chips{display:flex;gap:5px;flex-wrap:wrap}
+    .chip{padding:7px 14px;font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,.08);border-radius:100px;color:rgba(255,255,255,.35);cursor:pointer;transition:all .2s;background:transparent;font-family:inherit}
+    .chip:hover,.chip.on{background:var(--red);border-color:var(--red);color:var(--white)}
+    .sort-sel{background:var(--black3);border:1px solid rgba(255,255,255,.06);color:var(--white);padding:8px 12px;font-size:10px;border-radius:2px;outline:none;cursor:pointer;font-family:inherit;margin-left:auto}
+
+    /* PRODUCTS */
+    .prods-sec{padding:40px var(--px) 80px;background:var(--black)}
+    .prods-inner{max-width:1200px;margin:0 auto}
+    .res-info{font-size:10px;color:var(--gray);margin-bottom:20px;letter-spacing:.06em}
+    .res-info strong{color:var(--white)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(256px,1fr));gap:2px}
+    .card{background:var(--black2);position:relative;overflow:hidden;cursor:pointer;transition:transform .3s}
+    .card:hover{transform:translateY(-3px)}
+    .card-img{position:relative;overflow:hidden}
+    .card-img img{width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform .6s cubic-bezier(.4,0,.2,1);background:var(--black3)}
+    .card:hover .card-img img{transform:scale(1.05)}
+    .card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.9) 0%,transparent 50%);opacity:0;transition:opacity .4s}
+    .card:hover .card-overlay{opacity:1}
+    .card-quick{position:absolute;bottom:14px;left:14px;right:14px;display:flex;gap:7px;transform:translateY(10px);opacity:0;transition:all .35s cubic-bezier(.4,0,.2,1)}
+    .card:hover .card-quick{transform:none;opacity:1}
+    .card-badge{position:absolute;top:10px;left:10px;font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:3px 9px;border-radius:1px}
+    .b-new{background:var(--red);color:#fff}.b-sale{background:#e65c00;color:#fff}
+    .b-limited{background:#5b21b6;color:#fff}.b-bestseller{background:rgba(255,255,255,.1);color:#fff;backdrop-filter:blur(8px)}
+    .card-wish{position:absolute;top:9px;right:9px;width:32px;height:32px;background:rgba(8,8,8,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:all .2s;opacity:0;backdrop-filter:blur(8px)}
+    .card:hover .card-wish,.card-wish.wished{opacity:1}
+    .card-wish.wished{color:var(--red)}
+    .card-body{padding:14px 16px 18px}
+    .card-brand{font-size:7px;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);margin-bottom:3px}
+    .card-name{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.05;margin-bottom:3px}
+    .card-sub{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+    .card-price{display:flex;align-items:baseline;gap:7px}
+    .price-main{font-size:14px;font-weight:700}
+    .price-ori{font-size:11px;color:var(--gray);text-decoration:line-through}
+    .price-disc{font-size:8px;font-weight:700;color:#e65c00;background:rgba(230,92,0,.1);padding:2px 6px;border-radius:100px}
+
+    /* BTN */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 22px;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:all .25s;border:1px solid transparent;font-family:inherit}
+    .btn-red{background:var(--red);color:#fff;border-color:var(--red)}.btn-red:hover{background:transparent;color:var(--red)}
+    .btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.2)}.btn-outline:hover{border-color:#fff}
+    .btn-sm{padding:8px 14px;font-size:8px}
+
+    /* EMPTY & LOADING */
+    .empty{text-align:center;padding:80px 20px}
+    .empty .ei{font-size:44px;margin-bottom:14px}
+    .empty h3{font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:8px}
+    .empty p{color:var(--gray);font-size:12px;margin-bottom:18px}
+    .loading-dots{display:flex;gap:7px;justify-content:center}
+    .ld-dot{width:7px;height:7px;background:var(--red);border-radius:50%;animation:ld .8s ease-in-out infinite}
+    .ld-dot:nth-child(2){animation-delay:.15s}.ld-dot:nth-child(3){animation-delay:.3s}
+    @keyframes ld{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
+
+    /* MODAL */
+    .modal-bg{position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+    .modal-box{background:var(--black2);border:1px solid rgba(255,255,255,.06);border-radius:4px;width:100%;max-width:900px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;max-height:92vh;position:relative}
+    .modal-close{position:absolute;top:14px;right:14px;z-index:10;width:32px;height:32px;background:rgba(0,0,0,.8);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all .2s;color:rgba(255,255,255,.5)}
+    .modal-close:hover{background:var(--red);color:#fff}
+    .modal-gal{background:var(--black3);display:flex;flex-direction:column}
+    .modal-main{flex:1;overflow:hidden;min-height:300px}
+    .modal-main img{width:100%;height:100%;object-fit:cover}
+    .modal-thumbs{display:flex;gap:5px;padding:8px;background:rgba(0,0,0,.4);overflow-x:auto}
+    .modal-thumb{width:50px;height:64px;object-fit:cover;border-radius:1px;cursor:pointer;opacity:.4;border:2px solid transparent;flex-shrink:0;transition:all .2s}
+    .modal-thumb.on{opacity:1;border-color:var(--red)}
+    .modal-info{padding:28px;overflow-y:auto;display:flex;flex-direction:column}
+    .m-brand{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--gray);margin-bottom:6px}
+    .m-name{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,34px);line-height:.95;margin-bottom:6px}
+    .m-tag{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+    .m-desc{font-size:11px;color:rgba(255,255,255,.45);line-height:1.9;margin-bottom:16px}
+    .m-feats{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
+    .m-feat{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:3px 9px;border-radius:1px;color:rgba(255,255,255,.5)}
+    .m-price-lbl{font-size:7px;letter-spacing:.25em;text-transform:uppercase;color:var(--gray);margin-bottom:5px}
+    .m-price{font-family:'DM Serif Display',serif;font-size:34px;color:var(--red);line-height:1}
+    .m-price sup{font-size:.38em;vertical-align:super;font-family:'Space Mono',monospace}
+    .m-price-ori{font-size:12px;color:var(--gray);text-decoration:line-through;margin-left:8px}
+    .m-sec-lbl{font-size:7px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;display:flex;justify-content:space-between}
+    .m-sizes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+    .m-sz{width:40px;height:40px;border:1px solid rgba(255,255,255,.1);border-radius:1px;font-size:10px;font-weight:700;cursor:pointer;transition:all .2s;background:transparent;color:#fff;font-family:inherit}
+    .m-sz:hover{border-color:#fff}.m-sz.on{background:var(--red);border-color:var(--red)}
+    .m-qty-row{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+    .m-qty-ctrl{display:flex;align-items:center;gap:9px}
+    .m-qty-btn{width:28px;height:28px;border:1px solid rgba(255,255,255,.12);border-radius:1px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;background:transparent;transition:border-color .2s}
+    .m-qty-btn:hover{border-color:#fff}
+    .m-qty-val{font-size:14px;font-weight:700;min-width:20px;text-align:center}
+    .m-btns{display:flex;gap:8px;flex-wrap:wrap}.m-btns .btn{flex:1}
+
+    /* TOAST */
+    .toast-wrap{position:fixed;bottom:24px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:7px}
+    .toast{display:flex;align-items:center;gap:8px;padding:11px 16px;border-radius:2px;font-size:11px;font-weight:700;animation:tin .3s ease;min-width:220px}
+    .t-ok{background:#0a1f12;border:1px solid rgba(34,197,94,.25);color:#22c55e}
+    .t-err{background:#1f0a0a;border:1px solid rgba(204,0,0,.3);color:#ff6b6b}
+    .t-info{background:var(--black3);border:1px solid rgba(255,255,255,.08);color:#fff}
+    @keyframes tin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+    /* FOOTER */
+    footer{background:var(--black2);border-top:1px solid rgba(255,255,255,.04);padding:48px var(--px) 24px}
+    .foot-inner{max-width:1200px;margin:0 auto}
+    .foot-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:12px}
+    .foot-copy{font-size:9px;color:rgba(255,255,255,.2)}
+    .foot-soc{display:flex;gap:6px}
+    .soc-btn{width:32px;height:32px;border:1px solid rgba(255,255,255,.06);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:rgba(255,255,255,.3);transition:all .2s}
+    .soc-btn:hover{border-color:var(--red);color:var(--red)}
+
+    @media(max-width:900px){
+      :root{--px:20px}
+      .nav-links,.nav-cta{display:none}.ham{display:flex}
+      .charts-grid{grid-template-columns:1fr}
+      .modal-box{grid-template-columns:1fr}
+    }
+    @media(max-width:480px){
+      :root{--px:14px}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .ctrl-inner{flex-direction:column;align-items:stretch}
+      .search-box{max-width:100%}
+      .chips{overflow-x:auto;flex-wrap:nowrap}
+      .sort-sel{margin-left:0;width:100%}
+      .m-btns{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="../index.html" style="display:flex;align-items:center;gap:10px">
+    <img class="nav-logo" id="navLogo" src="" alt="Garisrey" style="display:none"/>
+    <span class="nav-wordmark" id="navWordmark">Garis<span>rey.</span></span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-lnk" href="../index.html">Beranda</a>
+    <span class="nav-lnk on">Shop</span>
+    <a class="nav-lnk" href="../index.html#about">About</a>
+    <a class="nav-lnk" href="../index.html#lookbook">Lookbook</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-user" id="navUser" style="display:none">
+      <span class="nav-uname" id="navUName"></span>
+      <button class="btn-ghost" onclick="doLogout()">Keluar</button>
+    </div>
+    <a class="nav-lnk" id="navLoginBtn" href="login.html" style="border:1px solid rgba(255,255,255,.12);border-radius:2px">Masuk</a>
+    <a class="nav-cta" href="https://wa.me/6281234567890" target="_blank">Order via WA</a>
+    <div class="ham" id="hamBtn" onclick="toggleDrawer()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div id="drawer">
+  <a class="dr-lnk" href="../index.html">Beranda</a>
+  <span class="dr-lnk on">Shop</span>
+  <a class="dr-lnk" id="drLogin" href="login.html">Masuk / Daftar</a>
+  <a class="dr-lnk" href="../index.html#about">About</a>
+  <span class="dr-lnk" id="drLogout" style="display:none" onclick="doLogout()">Keluar</span>
+  <a class="dr-lnk dr-cta" href="https://wa.me/6281234567890" target="_blank">Order via WA →</a>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee" style="margin-top:var(--nav-h)">
+  <div class="mq-track" id="mqTrack"></div>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="pg-eyebrow">Katalog Lengkap</div>
+    <h1 class="pg-title">All <span>Products.</span></h1>
+    <p class="pg-count" id="pgCount">Memuat...</p>
+  </div>
+</div>
+
+<!-- CHARTS -->
+<section class="charts-sec" id="chartsSection">
+  <div class="charts-inner">
+    <div class="charts-head">
+      <h2 class="charts-title">Statistik Produk</h2>
+      <p class="charts-sub">Update otomatis berdasarkan katalog terkini</p>
+    </div>
+    <div class="charts-grid" id="chartsGrid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="ctrl-inner">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchIn" placeholder="Cari produk..." oninput="applyFilter()"/>
+      <span class="s-clr" id="sClear" onclick="clearSearch()">×</span>
+    </div>
+    <div class="chips" id="chipsCont">
+      <button class="chip on" onclick="setCat('')">Semua</button>
+    </div>
+    <select class="sort-sel" id="sortSel" onchange="applyFilter()">
+      <option value="newest">Terbaru</option>
+      <option value="price-asc">Harga: Rendah</option>
+      <option value="price-desc">Harga: Tinggi</option>
+      <option value="name">Nama A–Z</option>
+    </select>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="prods-sec">
+  <div class="prods-inner">
+    <div id="loadingEl" style="text-align:center;padding:80px 0">
+      <div class="loading-dots"><div class="ld-dot"></div><div class="ld-dot"></div><div class="ld-dot"></div></div>
+      <p style="font-size:10px;color:var(--gray);letter-spacing:.18em;text-transform:uppercase;margin-top:14px">Memuat produk...</p>
+    </div>
+    <div id="prodsCont" style="display:none">
+      <p class="res-info" id="resInfo"></p>
+      <div class="grid" id="prodsGrid"></div>
+      <div class="empty" id="emptyEl" style="display:none">
+        <div class="ei">🔍</div>
+        <h3>Tidak Ditemukan</h3>
+        <p>Coba kata kunci lain atau reset filter</p>
+        <button class="btn btn-outline btn-sm" style="margin-top:14px" onclick="resetFilter()">Reset Filter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-bot">
+      <span class="foot-copy">© 2025 Garisrey. Made with ❤️ in Indonesia.</span>
+      <div class="foot-soc">
+        <a class="soc-btn" href="https://instagram.com/garisrey" target="_blank">IG</a>
+        <a class="soc-btn" href="https://wa.me/6281234567890" target="_blank">WA</a>
+        <a class="soc-btn" href="https://tiktok.com/@garisrey" target="_blank">TK</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" style="display:none" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const SUPABASE_URL  = 'https://dhfelzylnicdskzibsqx.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_anhuhVrAepwy4EcS5nMunQ_rYBSgBGH';
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+let allProducts=[], filtered=[], curCat='';
+let wishlist=JSON.parse(localStorage.getItem('gr_wishlist')||'[]');
+let modal={product:null,imgIdx:0,selSize:'',qty:1};
+let chartsInitialized = false;
+
+const fmt=n=>(n||0).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+const disc=p=>p.price_ori>p.price?Math.round((1-p.price/p.price_ori)*100):0;
+
+window.toggleDrawer=()=>{document.getElementById('drawer').classList.toggle('open');document.getElementById('hamBtn').classList.toggle('open')};
+window.closeDrawer=()=>{document.getElementById('drawer').classList.remove('open');document.getElementById('hamBtn').classList.remove('open')};
+
+// Auth
+const{data:{session}}=await sb.auth.getSession();
+if(session?.user){
+  document.getElementById('navUser').style.display='flex';
+  document.getElementById('navUName').textContent=session.user.user_metadata?.full_name?.split(' ')[0]||session.user.email.split('@')[0];
+  document.getElementById('drLogout').style.display='block';
+  document.getElementById('navLoginBtn').style.display='none';
+  const dl=document.getElementById('drLogin');if(dl)dl.style.display='none';
+}
+window.doLogout=async()=>{await sb.auth.signOut();window.location.href="../index.html"};
+
+// Logo
+async function loadLogo(){
+  const exts=['jpeg','jpg','png','webp'];
+  // Coba local ../logo/ dulu
+  for(const ext of exts){
+    const path=`../logo/logoputih.${ext}`;
+    const ok=await fetch(path,{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
+    if(ok){
+      const el=document.getElementById('navLogo');
+      el.src=path;el.style.display='block';
+      document.getElementById('navWordmark').style.display='none';
+      return;
+    }
+  }
+  // Fallback Supabase
+  for(const ext of exts){
+    const{data}=sb.storage.from('assets').getPublicUrl(`logo/logoputih.${ext}`);
+    const ok=await fetch(data.publicUrl,{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
+    if(ok){
+      const el=document.getElementById('navLogo');
+      el.src=data.publicUrl;el.style.display='block';
+      document.getElementById('navWordmark').style.display='none';
+      break;
+    }
+  }
+}
+loadLogo();
+
+// Marquee
+const mqItems=['Garisrey','From East to Peace','Made in Indonesia','Baggy Build','Local Pride','Denim Culture','SS 2025','#GarisreyID'];
+const track=document.getElementById('mqTrack');
+[1,2].forEach(()=>mqItems.forEach(item=>{
+  const s=document.createElement('span');s.className='mq-item';s.textContent=item;track.appendChild(s);
+  const d=document.createElement('span');d.className='mq-sep';d.textContent='✦';track.appendChild(d);
+}));
+
+// Load products
+async function loadProducts(){
+  const{data}=await sb.from('products').select('*').eq('status','active').order('created_at',{ascending:false});
+  allProducts=data||[];
+}
+
+// Build charts
+function buildCharts(){
+  const grid=document.getElementById('chartsGrid');
+
+  // Prepare data
+  const catCounts={};
+  allProducts.forEach(p=>{ if(p.category){ catCounts[p.category]=(catCounts[p.category]||0)+1; }});
+  const cats=Object.keys(catCounts);
+  const catVals=Object.values(catCounts);
+
+  // Price ranges
+  const ranges={'< 100k':0,'100-200k':0,'200-300k':0,'300k+':0};
+  allProducts.forEach(p=>{
+    const price=p.price||0;
+    if(price<100000) ranges['< 100k']++;
+    else if(price<200000) ranges['100-200k']++;
+    else if(price<300000) ranges['200-300k']++;
+    else ranges['300k+']++;
+  });
+
+  // Monthly uploads (last 6 months)
+  const months={};
+  const now=new Date();
+  for(let i=5;i>=0;i--){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    const key=d.toLocaleString('id-ID',{month:'short',year:'2-digit'});
+    months[key]=0;
+  }
+  allProducts.forEach(p=>{
+    if(p.created_at){
+      const d=new Date(p.created_at);
+      const key=d.toLocaleString('id-ID',{month:'short',year:'2-digit'});
+      if(months[key]!==undefined) months[key]++;
+    }
+  });
+
+  // Total revenue estimate
+  const totalRevEst = allProducts.reduce((s,p)=>s+p.price,0);
+  const avgPrice = allProducts.length ? Math.round(allProducts.reduce((s,p)=>s+p.price,0)/allProducts.length) : 0;
+
+  grid.innerHTML=`
+    <div class="chart-card">
+      <div class="chart-card-title">Upload Produk per Bulan</div>
+      <div class="chart-wrap"><canvas id="chartTimeline"></canvas></div>
+    </div>
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-card-lbl">Total Produk Aktif</div>
+        <div class="stat-card-val">${allProducts.length}</div>
+        <div class="stat-card-sub">di katalog toko</div>
+        <div class="stat-card-trend trend-up">▲ Live sekarang</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-lbl">Rata-rata Harga</div>
+        <div class="stat-card-val" style="font-size:22px">Rp${fmt(avgPrice)}</div>
+        <div class="stat-card-sub">per produk</div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-card-title">Distribusi Kategori</div>
+      <div class="chart-wrap" style="display:flex;align-items:center;justify-content:center"><canvas id="chartCats" style="max-height:180px"></canvas></div>
+    </div>`;
+
+  // Timeline chart
+  const timeCtx=document.getElementById('chartTimeline').getContext('2d');
+  new Chart(timeCtx,{
+    type:'bar',
+    data:{
+      labels:Object.keys(months),
+      datasets:[{
+        label:'Produk Baru',
+        data:Object.values(months),
+        backgroundColor:'rgba(204,0,0,.6)',
+        borderColor:'var(--red)',
+        borderWidth:1,
+        borderRadius:2,
+        borderSkipped:false,
+      }]
+    },
+    options:{
+      responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.raw} produk`}}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#666',font:{size:9}}},
+        y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#666',font:{size:9},stepSize:1},beginAtZero:true}
+      }
+    }
+  });
+
+  // Category donut
+  if(cats.length){
+    const catCtx=document.getElementById('chartCats').getContext('2d');
+    new Chart(catCtx,{
+      type:'doughnut',
+      data:{
+        labels:cats,
+        datasets:[{
+          data:catVals,
+          backgroundColor:['rgba(204,0,0,.8)','rgba(204,0,0,.5)','rgba(204,0,0,.3)','rgba(100,100,100,.6)','rgba(150,150,150,.4)'],
+          borderColor:'rgba(8,8,8,1)',
+          borderWidth:3,
+        }]
+      },
+      options:{
+        responsive:true,
+        plugins:{
+          legend:{display:true,position:'bottom',labels:{color:'#666',font:{size:9},boxWidth:10}},
+          tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.raw} produk`}}
+        },
+        cutout:'65%',
+      }
+    });
+  } else {
+    document.getElementById('chartCats').parentElement.innerHTML='<p style="font-size:10px;color:var(--gray);text-align:center;padding:40px 0">Belum ada kategori</p>';
+  }
+
+  chartsInitialized=true;
+}
+
+function buildChips(){
+  const cats=[...new Set(allProducts.map(p=>p.category).filter(Boolean))];
+  document.getElementById('chipsCont').innerHTML=
+    `<button class="chip${curCat===''?' on':''}" onclick="setCat('')">Semua</button>`
+    +cats.map(c=>`<button class="chip${curCat===c?' on':''}" onclick="setCat('${c}')">${c}</button>`).join('');
+}
+window.setCat=c=>{curCat=c;buildChips();applyFilter()};
+window.clearSearch=()=>{document.getElementById('searchIn').value='';applyFilter()};
+window.resetFilter=()=>{document.getElementById('searchIn').value='';curCat='';document.getElementById('sortSel').value='newest';buildChips();applyFilter()};
+
+window.applyFilter=()=>{
+  const q=(document.getElementById('searchIn').value||'').toLowerCase();
+  const sort=document.getElementById('sortSel').value;
+  document.getElementById('sClear').classList.toggle('show',q.length>0);
+  let r=[...allProducts];
+  if(q)r=r.filter(p=>[p.name,p.tagline,p.category,p.description].join(' ').toLowerCase().includes(q));
+  if(curCat)r=r.filter(p=>p.category===curCat);
+  if(sort==='price-asc')r.sort((a,b)=>a.price-b.price);
+  else if(sort==='price-desc')r.sort((a,b)=>b.price-a.price);
+  else if(sort==='name')r.sort((a,b)=>a.name.localeCompare(b.name));
+  filtered=r;
+  document.getElementById('pgCount').textContent=`${filtered.length} produk tersedia`;
+  document.getElementById('resInfo').innerHTML=`Menampilkan <strong>${filtered.length}</strong> dari ${allProducts.length} produk`;
+  renderGrid();
+};
+
+function renderGrid(){
+  const grid=document.getElementById('prodsGrid'),empty=document.getElementById('emptyEl');
+  if(!allProducts.length){
+    grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="ei">👕</div><h3>Belum Ada Produk</h3><p>Cek kembali nanti!</p></div>`;
+    empty.style.display='none';return;
+  }
+  if(!filtered.length){grid.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  grid.innerHTML=filtered.map(p=>`
+    <div class="card" onclick="openDetail('${p.id}')">
+      <div class="card-img">
+        <img src="${(p.images||[])[0]||''}" alt="${p.name}" loading="lazy" onerror="this.style.minHeight='200px'"/>
+        ${p.badge?`<span class="card-badge b-${p.badge}">${p.badge}</span>`:''}
+        <button class="card-wish${wishlist.includes(p.id)?' wished':''}" onclick="event.stopPropagation();toggleWish('${p.id}')">${wishlist.includes(p.id)?'♥':'♡'}</button>
+        <div class="card-overlay"></div>
+        <div class="card-quick" onclick="event.stopPropagation()">
+          <button class="btn btn-red btn-sm" style="flex:1" onclick="openDetail('${p.id}')">Detail</button>
+          <button class="btn btn-outline btn-sm" onclick="quickWA('${p.id}')">WA</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-brand">${p.brand||'Garisrey'}</p>
+        <h3 class="card-name">${p.name}</h3>
+        <p class="card-sub">${p.tagline||''}</p>
+        <div class="card-price">
+          <span class="price-main"><sup style="font-size:.55em;vertical-align:super">Rp</sup>${fmt(p.price)}</span>
+          ${p.price_ori>p.price?`<span class="price-ori">Rp${fmt(p.price_ori)}</span><span class="price-disc">-${disc(p)}%</span>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+window.toggleWish=id=>{
+  const i=wishlist.indexOf(id);
+  if(i===-1){wishlist.push(id);showToast('Ditambahkan ke wishlist ♥','ok');}
+  else{wishlist.splice(i,1);showToast('Dihapus dari wishlist','info');}
+  localStorage.setItem('gr_wishlist',JSON.stringify(wishlist));
+  renderGrid();
+  const wb=document.getElementById('wishBtn');
+  if(wb)wb.textContent=wishlist.includes(id)?'♥ Disimpan':'♡ Simpan';
+};
+
+window.openDetail=id=>{
+  const p=allProducts.find(x=>x.id===id);if(!p)return;
+  modal={product:p,imgIdx:0,selSize:'',qty:1};
+  renderModal();
+  document.getElementById('modalBg').style.display='flex';
+  document.body.style.overflow='hidden';
+};
+window.closeModal=()=>{document.getElementById('modalBg').style.display='none';document.body.style.overflow=''};
+
+function renderModal(){
+  const p=modal.product;const imgs=p.images||[];
+  document.getElementById('modalBox').innerHTML=`
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-gal">
+      <div class="modal-main"><img id="mMain" src="${imgs[0]||''}" alt="${p.name}"/></div>
+      ${imgs.length>1?`<div class="modal-thumbs">${imgs.map((img,i)=>`<img src="${img}" class="modal-thumb${i===0?' on':''}" onclick="setMImg(${i})"/>`).join('')}</div>`:''}
+    </div>
+    <div class="modal-info">
+      <p class="m-brand">${p.brand||'Garisrey'}</p>
+      <h2 class="m-name">${p.name}</h2>
+      <p class="m-tag">${p.tagline||''}</p>
+      <p class="m-desc">${p.description||''}</p>
+      ${p.features?.length?`<div class="m-feats">${p.features.map(f=>`<span class="m-feat">${f}</span>`).join('')}</div>`:''}
+      <div style="margin-bottom:16px">
+        <div class="m-price-lbl">Harga</div>
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <span class="m-price"><sup>Rp</sup>${fmt(p.price)}</span>
+          ${p.price_ori>p.price?`<span class="m-price-ori">Rp${fmt(p.price_ori)}</span>`:''}
+        </div>
+      </div>
+      ${p.sizes?.length?`
+        <div class="m-sec-lbl"><span>Pilih Ukuran</span><span id="mSizeLbl" style="color:var(--red)"></span></div>
+        <div class="m-sizes">${p.sizes.map(s=>`<button class="m-sz" onclick="selSize('${s}')">${s}</button>`).join('')}</div>`:''}
+      <div class="m-qty-row">
+        <span class="m-sec-lbl" style="margin-bottom:0">Jumlah</span>
+        <div class="m-qty-ctrl">
+          <button class="m-qty-btn" onclick="chgQty(-1)">−</button>
+          <span class="m-qty-val" id="mQty">1</span>
+          <button class="m-qty-btn" onclick="chgQty(1)">+</button>
+        </div>
+      </div>
+      <div class="m-btns">
+        <button class="btn btn-red" onclick="buyWA()">Beli via WhatsApp →</button>
+        <button class="btn btn-outline" id="wishBtn" onclick="toggleWish('${p.id}')">${wishlist.includes(p.id)?'♥ Disimpan':'♡ Simpan'}</button>
+      </div>
+    </div>`;
+}
+window.setMImg=i=>{modal.imgIdx=i;document.getElementById('mMain').src=modal.product.images[i]||'';document.querySelectorAll('.modal-thumb').forEach((t,idx)=>t.classList.toggle('on',idx===i))};
+window.selSize=s=>{modal.selSize=s;document.querySelectorAll('.m-sz').forEach(b=>b.classList.toggle('on',b.textContent===s));const l=document.getElementById('mSizeLbl');if(l)l.textContent=s};
+window.chgQty=d=>{modal.qty=Math.max(1,Math.min(10,modal.qty+d));document.getElementById('mQty').textContent=modal.qty};
+window.buyWA=()=>{
+  const p=modal.product;
+  if(p.sizes?.length&&!modal.selSize){showToast('Pilih ukuran dulu!','err');return;}
+  const txt=`Halo Garisrey! 👋\n\nSaya mau order:\n\n🛍 Produk: ${p.name}\n📏 Ukuran: ${modal.selSize||'—'}\n🔢 Jumlah: ${modal.qty}\n💰 Total: Rp${fmt(p.price*modal.qty)}\n\nMohon info ketersediaan. Terima kasih!`;
+  window.open('https://wa.me/6281234567890?text='+encodeURIComponent(txt),'_blank');
+};
+window.quickWA=id=>{const p=allProducts.find(x=>x.id===id);if(!p)return;window.open('https://wa.me/6281234567890?text='+encodeURIComponent(`Halo Garisrey! 👋\nSaya tertarik dengan *${p.name}*.\nBoleh info ketersediaan dan cara order?`),'_blank')};
+
+window.showToast=(msg,type='info')=>{
+  const icons={ok:'✅',err:'❌',info:'ℹ️'};
+  const el=document.createElement('div');el.className=`toast t-${type}`;el.textContent=icons[type]+' '+msg;
+  document.getElementById('toastWrap').appendChild(el);setTimeout(()=>el.remove(),3200);
+};
+
+// INIT
+async function init(){
+  await loadProducts();
+  buildChips();
+  applyFilter();
+  buildCharts();
+  document.getElementById('loadingEl').style.display='none';
+  document.getElementById('prodsCont').style.display='block';
+
+  // Realtime
+  sb.channel('products-changes').on('postgres_changes',{event:'*',schema:'public',table:'products'},async()=>{
+    await loadProducts();buildChips();applyFilter();
+    // Rebuild charts
+    document.getElementById('chartsGrid').innerHTML='';
+    chartsInitialized=false;
+    buildCharts();
+  }).subscribe();
+}
+
+init();
+</script>
+</body>
+</html>

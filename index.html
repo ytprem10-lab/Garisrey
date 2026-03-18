@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Garisrey — From East to Peace</title>
+  <meta name="description" content="Garisrey — Brand Fashion Lokal Indonesia. From East to Peace. Denim Culture, Local Pride."/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --red:#CC0000;--red-dk:#990000;--red-lt:rgba(204,0,0,.08);
+      --black:#080808;--black2:#111;--black3:#1a1a1a;--black4:#222;
+      --white:#FAFAFA;--gray:#777;--gray2:#444;
+      --nav-h:70px;--px:48px;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{font-family:'Space Mono',monospace;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6;cursor:default}
+    img,video{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+    ::-webkit-scrollbar{width:2px}
+    ::-webkit-scrollbar-track{background:var(--black2)}
+    ::-webkit-scrollbar-thumb{background:var(--red)}
+
+    /* ── NAV ── */
+    nav{
+      position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:600;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 var(--px);transition:all .4s ease;
+    }
+    nav.solid{
+      background:rgba(8,8,8,.97);
+      border-bottom:1px solid rgba(204,0,0,.12);
+      backdrop-filter:blur(20px);
+    }
+    .nav-logo{height:28px;width:auto;object-fit:contain;filter:brightness(0) invert(1);transition:opacity .3s}
+    .nav-logo:hover{opacity:.7}
+    .nav-wordmark{font-family:'DM Serif Display',serif;font-style:italic;font-size:20px;letter-spacing:.02em}
+    .nav-wordmark span{color:var(--red)}
+    .nav-links{display:flex;align-items:center;gap:2px}
+    .nav-lnk{
+      padding:8px 14px;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+      color:rgba(255,255,255,.4);border-radius:2px;transition:color .2s;cursor:pointer
+    }
+    .nav-lnk:hover,.nav-lnk.on{color:var(--white)}
+    .nav-right{display:flex;align-items:center;gap:10px}
+    .nav-cta{
+      padding:9px 20px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+      background:var(--red);color:var(--white);border-radius:2px;transition:all .25s;border:1px solid var(--red)
+    }
+    .nav-cta:hover{background:transparent;color:var(--red)}
+    .nav-user{display:flex;align-items:center;gap:8px}
+    .nav-uname{font-size:9px;color:var(--gray);letter-spacing:.1em}
+    .btn-ghost{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:6px 12px;border:1px solid rgba(255,255,255,.08);border-radius:2px;transition:all .2s}
+    .btn-ghost:hover{color:var(--red);border-color:rgba(204,0,0,.4)}
+    .ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+    .ham span{display:block;width:22px;height:1.5px;background:var(--white);transition:transform .3s,opacity .3s}
+    .ham.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    .ham.open span:nth-child(2){opacity:0}
+    .ham.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+    /* ── DRAWER ── */
+    #drawer{
+      position:fixed;inset:0;z-index:550;background:var(--black);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+      transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)
+    }
+    #drawer.open{transform:none}
+    .dr-lnk{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);padding:16px 48px;transition:color .2s;cursor:pointer}
+    .dr-lnk:hover,.dr-lnk.on{color:var(--white)}
+    .dr-cta{margin-top:20px;background:var(--red);color:var(--white)!important;border-radius:2px}
+
+    /* ── MARQUEE ── */
+    .marquee{overflow:hidden;background:var(--red);padding:10px 0;margin-top:var(--nav-h)}
+    .mq-track{display:flex;white-space:nowrap;animation:mq 32s linear infinite}
+    .mq-item{font-size:9px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;padding:0 28px}
+    .mq-sep{display:inline-block;margin:0 4px;opacity:.5}
+    @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* ── HERO ── */
+    .hero{
+      position:relative;height:100vh;min-height:600px;overflow:hidden;
+      display:flex;align-items:flex-end;
+    }
+    .hero-bg{position:absolute;inset:0;background:var(--black2);overflow:hidden}
+    .hero-bg video{width:100%;height:100%;object-fit:cover;opacity:.55;transition:opacity 1s}
+    .hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.65}
+    .hero-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(180deg,rgba(8,8,8,.15) 0%,rgba(8,8,8,.25) 40%,rgba(8,8,8,.85) 80%,rgba(8,8,8,.98) 100%)
+    }
+    .hero-side-text{
+      position:absolute;right:32px;top:50%;transform:translateY(-50%) rotate(90deg);
+      transform-origin:center center;
+      font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.25);
+      white-space:nowrap;
+    }
+    .hero-content{
+      position:relative;z-index:2;padding:0 var(--px) 72px;
+      max-width:1200px;margin:0 auto;width:100%
+    }
+    .hero-eyebrow{
+      display:flex;align-items:center;gap:12px;
+      font-size:8px;font-weight:700;letter-spacing:.35em;text-transform:uppercase;
+      color:var(--red);margin-bottom:20px;
+    }
+    .hero-eyebrow::before{content:'';width:30px;height:1px;background:var(--red)}
+    .hero-title{
+      font-family:'DM Serif Display',serif;
+      font-size:clamp(52px,9vw,110px);
+      line-height:.88;
+      margin-bottom:24px;
+      letter-spacing:-.01em;
+    }
+    .hero-title em{color:var(--red);font-style:italic}
+    .hero-sub{
+      font-size:11px;color:rgba(255,255,255,.45);
+      letter-spacing:.12em;margin-bottom:40px;max-width:380px;line-height:1.9
+    }
+    .hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:13px 28px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+      border-radius:2px;cursor:pointer;transition:all .25s;border:1px solid transparent;
+      font-family:'Space Mono',monospace
+    }
+    .btn-red{background:var(--red);color:#fff;border-color:var(--red)}
+    .btn-red:hover{background:transparent;color:var(--red)}
+    .btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.25)}
+    .btn-outline:hover{border-color:#fff}
+    .hero-scroll{
+      position:absolute;bottom:32px;right:var(--px);
+      display:flex;flex-direction:column;align-items:center;gap:8px;
+      font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3)
+    }
+    .hero-scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,rgba(204,0,0,.6),transparent);animation:scrollLine 2s ease-in-out infinite}
+    @keyframes scrollLine{0%,100%{transform:scaleY(1);opacity:.6}50%{transform:scaleY(.5);opacity:.2}}
+
+    /* ── SECTION COMMONS ── */
+    .section-tag{
+      display:flex;align-items:center;gap:10px;
+      font-size:8px;font-weight:700;letter-spacing:.35em;text-transform:uppercase;
+      color:var(--red);margin-bottom:14px
+    }
+    .section-tag::before{content:'';width:24px;height:1px;background:var(--red)}
+    .section-title{
+      font-family:'DM Serif Display',serif;
+      font-size:clamp(32px,5vw,56px);
+      line-height:.95;margin-bottom:8px
+    }
+    .section-title span{color:var(--red)}
+    .section-title em{font-style:italic}
+
+    /* ── LATEST PRODUCTS ── */
+    .latest-sec{padding:80px var(--px);background:var(--black)}
+    .latest-inner{max-width:1200px;margin:0 auto}
+    .latest-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:16px}
+    .view-all{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);border-bottom:1px solid var(--gray2);padding-bottom:2px;transition:all .2s;cursor:pointer}
+    .view-all:hover{color:var(--white);border-color:var(--white)}
+    .prods-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+    .prod-card{background:var(--black2);position:relative;overflow:hidden;cursor:pointer;group}
+    .prod-card-img{position:relative;overflow:hidden}
+    .prod-card-img img{width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform .7s cubic-bezier(.4,0,.2,1);background:var(--black3)}
+    .prod-card:hover .prod-card-img img{transform:scale(1.06)}
+    .prod-card-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(8,8,8,.9) 0%,transparent 50%);
+      opacity:0;transition:opacity .4s
+    }
+    .prod-card:hover .prod-card-overlay{opacity:1}
+    .prod-card-quick{
+      position:absolute;bottom:16px;left:16px;right:16px;
+      display:flex;gap:8px;
+      transform:translateY(12px);opacity:0;
+      transition:all .35s cubic-bezier(.4,0,.2,1)
+    }
+    .prod-card:hover .prod-card-quick{transform:none;opacity:1}
+    .prod-card-badge{
+      position:absolute;top:12px;left:12px;
+      font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+      padding:4px 10px;border-radius:1px
+    }
+    .b-new{background:var(--red);color:#fff}
+    .b-sale{background:#e65c00;color:#fff}
+    .b-limited{background:#5b21b6;color:#fff}
+    .b-bestseller{background:rgba(255,255,255,.12);color:#fff;backdrop-filter:blur(8px)}
+    .prod-card-wish{
+      position:absolute;top:10px;right:10px;
+      width:34px;height:34px;background:rgba(8,8,8,.7);
+      border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:14px;transition:all .25s;opacity:0;backdrop-filter:blur(8px)
+    }
+    .prod-card:hover .prod-card-wish,.prod-card-wish.wished{opacity:1}
+    .prod-card-wish.wished{color:var(--red)}
+    .prod-card-body{padding:16px 18px 20px}
+    .prod-card-brand{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);margin-bottom:4px}
+    .prod-card-name{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.05;margin-bottom:4px}
+    .prod-card-sub{font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+    .prod-card-price{display:flex;align-items:baseline;gap:8px}
+    .price-main{font-size:15px;font-weight:700}
+    .price-ori{font-size:11px;color:var(--gray);text-decoration:line-through}
+    .price-disc{font-size:8px;font-weight:700;color:#e65c00;background:rgba(230,92,0,.1);padding:2px 7px;border-radius:100px}
+
+    /* ── BRAND STORY / ABOUT ── */
+    .about-sec{
+      padding:100px var(--px);
+      background:var(--black2);
+      border-top:1px solid rgba(255,255,255,.04);
+      border-bottom:1px solid rgba(255,255,255,.04)
+    }
+    .about-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .about-img-wrap{position:relative}
+    .about-img-main{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:2px}
+    .about-img-accent{
+      position:absolute;bottom:-28px;right:-28px;
+      width:55%;aspect-ratio:1;object-fit:cover;border-radius:2px;
+      border:4px solid var(--black2)
+    }
+    .about-tag-wrap{position:absolute;top:20px;left:-20px;background:var(--red);padding:10px 14px;border-radius:2px;writing-mode:vertical-lr;transform:rotate(180deg)}
+    .about-tag-txt{font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:#fff;white-space:nowrap}
+    .about-text{padding-bottom:20px}
+    .about-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:2;margin-bottom:32px;max-width:460px}
+    .about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.06)}
+    .stat-num{font-family:'DM Serif Display',serif;font-size:40px;color:var(--red);line-height:1}
+    .stat-lbl{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);margin-top:4px}
+
+    /* ── LOOKBOOK / GALLERY ── */
+    .gallery-sec{padding:80px 0;background:var(--black);overflow:hidden}
+    .gallery-head{padding:0 var(--px);max-width:1200px;margin:0 auto 40px}
+    .gallery-strip{
+      display:flex;gap:4px;overflow-x:auto;padding:0 var(--px);
+      scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+      scrollbar-width:none
+    }
+    .gallery-strip::-webkit-scrollbar{display:none}
+    .gallery-item{
+      flex:0 0 auto;width:300px;aspect-ratio:3/4;overflow:hidden;
+      scroll-snap-align:start;border-radius:2px;cursor:pointer;position:relative
+    }
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+    .gallery-item:hover img{transform:scale(1.05)}
+    .gallery-item-overlay{
+      position:absolute;inset:0;background:rgba(8,8,8,.5);
+      opacity:0;transition:opacity .3s;
+      display:flex;align-items:center;justify-content:center
+    }
+    .gallery-item:hover .gallery-item-overlay{opacity:1}
+    .gallery-view-icon{font-size:24px;color:#fff}
+
+    /* ── CTA BAND ── */
+    .cta-band{
+      padding:80px var(--px);background:var(--red);
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px
+    }
+    .cta-band-inner{max-width:1200px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
+    .cta-band-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,48px);line-height:.95;max-width:500px}
+    .cta-band-title em{font-style:italic;opacity:.7}
+    .btn-white{background:#fff;color:var(--red);border:1px solid #fff}
+    .btn-white:hover{background:transparent;color:#fff}
+
+    /* ── LOGO SHOWCASE ── */
+    .logo-sec{
+      padding:64px var(--px);background:var(--black2);
+      border-top:1px solid rgba(255,255,255,.04);
+      border-bottom:1px solid rgba(255,255,255,.04)
+    }
+    .logo-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:48px;flex-wrap:wrap;justify-content:center}
+    .logo-asset{opacity:.25;transition:opacity .3s;filter:brightness(0) invert(1)}
+    .logo-asset:hover{opacity:.7}
+    .logo-asset img{height:36px;width:auto}
+
+    /* ── FOOTER ── */
+    footer{background:var(--black2);border-top:1px solid rgba(255,255,255,.04);padding:64px var(--px) 32px}
+    .foot-inner{max-width:1200px;margin:0 auto}
+    .foot-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+    .foot-brand-logo{height:26px;width:auto;object-fit:contain;filter:brightness(0) invert(1);margin-bottom:16px;opacity:.7}
+    .foot-brand-tagline{font-family:'DM Serif Display',serif;font-size:13px;font-style:italic;color:rgba(255,255,255,.4);margin-bottom:10px}
+    .foot-brand-desc{font-size:10px;color:rgba(255,255,255,.25);line-height:1.8;max-width:260px}
+    .foot-col h4{font-size:7px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gray2);margin-bottom:16px}
+    .foot-col a,.foot-col span{display:block;font-size:10px;color:rgba(255,255,255,.3);margin-bottom:10px;transition:color .2s;cursor:pointer}
+    .foot-col a:hover,.foot-col span:hover{color:var(--white)}
+    .foot-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:20px;border-top:1px solid rgba(255,255,255,.04)}
+    .foot-copy{font-size:9px;color:rgba(255,255,255,.2);letter-spacing:.08em}
+    .foot-soc{display:flex;gap:6px}
+    .soc-btn{width:32px;height:32px;border:1px solid rgba(255,255,255,.06);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:rgba(255,255,255,.3);transition:all .2s}
+    .soc-btn:hover{border-color:var(--red);color:var(--red)}
+
+    /* ── TOAST ── */
+    .toast-wrap{position:fixed;bottom:24px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:7px}
+    .toast{display:flex;align-items:center;gap:8px;padding:11px 16px;border-radius:2px;font-size:11px;font-weight:700;animation:tin .3s ease;min-width:220px}
+    .t-ok{background:#0a1f12;border:1px solid rgba(34,197,94,.25);color:#22c55e}
+    .t-err{background:#1f0a0a;border:1px solid rgba(204,0,0,.3);color:#ff6b6b}
+    .t-info{background:var(--black3);border:1px solid rgba(255,255,255,.08);color:#fff}
+    @keyframes tin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+    /* ── MODAL (product detail) ── */
+    .modal-bg{position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+    .modal-box{background:var(--black2);border:1px solid rgba(255,255,255,.06);border-radius:4px;width:100%;max-width:900px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;max-height:92vh;position:relative}
+    .modal-close{position:absolute;top:14px;right:14px;z-index:10;width:32px;height:32px;background:rgba(0,0,0,.8);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all .2s;color:rgba(255,255,255,.5)}
+    .modal-close:hover{background:var(--red);color:#fff}
+    .modal-gal{background:var(--black3);display:flex;flex-direction:column}
+    .modal-main{flex:1;overflow:hidden;min-height:300px}
+    .modal-main img{width:100%;height:100%;object-fit:cover}
+    .modal-thumbs{display:flex;gap:5px;padding:8px;background:rgba(0,0,0,.4);overflow-x:auto}
+    .modal-thumb{width:50px;height:64px;object-fit:cover;border-radius:1px;cursor:pointer;opacity:.4;border:2px solid transparent;flex-shrink:0;transition:all .2s}
+    .modal-thumb.on{opacity:1;border-color:var(--red)}
+    .modal-info{padding:28px;overflow-y:auto;display:flex;flex-direction:column}
+    .m-brand{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--gray);margin-bottom:6px}
+    .m-name{font-family:'DM Serif Display',serif;font-size:clamp(24px,3vw,36px);line-height:.95;margin-bottom:6px}
+    .m-tag{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+    .m-desc{font-size:11px;color:rgba(255,255,255,.45);line-height:1.9;margin-bottom:18px}
+    .m-feats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+    .m-feat{font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:4px 10px;border-radius:1px;color:rgba(255,255,255,.5)}
+    .m-price-lbl{font-size:7px;letter-spacing:.25em;text-transform:uppercase;color:var(--gray);margin-bottom:5px}
+    .m-price{font-family:'DM Serif Display',serif;font-size:36px;color:var(--red);line-height:1}
+    .m-price sup{font-size:.38em;vertical-align:super;font-family:'Space Mono',monospace}
+    .m-price-ori{font-size:12px;color:var(--gray);text-decoration:line-through;margin-left:8px}
+    .m-sec-lbl{font-size:7px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);margin-bottom:9px;display:flex;justify-content:space-between}
+    .m-sizes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+    .m-sz{width:42px;height:42px;border:1px solid rgba(255,255,255,.1);border-radius:1px;font-size:10px;font-weight:700;cursor:pointer;transition:all .2s;background:transparent;color:#fff;font-family:inherit}
+    .m-sz:hover{border-color:#fff}
+    .m-sz.on{background:var(--red);border-color:var(--red)}
+    .m-qty-row{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    .m-qty-ctrl{display:flex;align-items:center;gap:10px}
+    .m-qty-btn{width:28px;height:28px;border:1px solid rgba(255,255,255,.12);border-radius:1px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;background:transparent;transition:border-color .2s}
+    .m-qty-btn:hover{border-color:#fff}
+    .m-qty-val{font-size:14px;font-weight:700;min-width:20px;text-align:center}
+    .m-btns{display:flex;gap:8px;flex-wrap:wrap}
+    .m-btns .btn{flex:1}
+
+    /* ── LOADING ── */
+    #pageLoader{
+      position:fixed;inset:0;z-index:9999;background:var(--black);
+      display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;
+      transition:opacity .5s
+    }
+    #pageLoader.out{opacity:0;pointer-events:none}
+    .loader-logo{height:32px;filter:brightness(0) invert(1);opacity:.8;animation:logoFade 1.5s ease-in-out infinite}
+    @keyframes logoFade{0%,100%{opacity:.4}50%{opacity:1}}
+    .loader-line{width:180px;height:1px;background:rgba(255,255,255,.06);overflow:hidden;border-radius:1px;margin-top:8px}
+    .loader-prog{height:100%;background:var(--red);animation:loaderAnim 1.8s ease-in-out infinite}
+    @keyframes loaderAnim{0%{width:0%;margin-left:0}50%{width:80%;margin-left:0}100%{width:0%;margin-left:100%}}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){
+      :root{--px:28px}
+      .prods-grid{grid-template-columns:repeat(2,1fr)}
+      .about-inner{grid-template-columns:1fr;gap:40px}
+      .about-img-accent{display:none}
+    }
+    @media(max-width:768px){
+      :root{--px:20px}
+      .nav-links,.nav-cta{display:none}
+      .ham{display:flex}
+      .modal-box{grid-template-columns:1fr}
+      .foot-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:480px){
+      :root{--px:16px}
+      .prods-grid{grid-template-columns:1fr 1fr;gap:2px}
+      .foot-grid{grid-template-columns:1fr}
+      .m-btns{flex-direction:column}
+      .hero-scroll{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<!-- PAGE LOADER -->
+<div id="pageLoader">
+  <img class="loader-logo" id="loaderLogo" src="" alt="Garisrey"/>
+  <div class="loader-line"><div class="loader-prog"></div></div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" style="display:flex;align-items:center;gap:10px">
+    <img class="nav-logo" id="navLogo" src="" alt="Garisrey" style="display:none"/>
+    <span class="nav-wordmark" id="navWordmark">Garis<span>rey.</span></span>
+  </a>
+  <div class="nav-links">
+    <span class="nav-lnk on">Beranda</span>
+    <a class="nav-lnk" href="pages/shop.html">Shop</a>
+    <a class="nav-lnk" href="index.html#about">About</a>
+    <a class="nav-lnk" href="index.html#lookbook">Lookbook</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-user" id="navUser" style="display:none">
+      <span class="nav-uname" id="navUName"></span>
+      <button class="btn-ghost" onclick="doLogout()">Keluar</button>
+    </div>
+    <a class="nav-cta" id="navAuthBtn" href="pages/login.html">Masuk</a>
+    <div class="ham" id="hamBtn" onclick="toggleDrawer()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- DRAWER -->
+<div id="drawer">
+  <span class="dr-lnk on">Beranda</span>
+  <a class="dr-lnk" href="pages/shop.html">Shop</a>
+  <span class="dr-lnk" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'});closeDrawer()">About</span>
+  <span class="dr-lnk" onclick="document.getElementById('lookbook').scrollIntoView({behavior:'smooth'});closeDrawer()">Lookbook</span>
+  <a class="dr-lnk" id="drLogin" href="pages/login.html">Masuk / Daftar</a>
+  <span class="dr-lnk" id="drLogout" style="display:none" onclick="doLogout()">Keluar</span>
+  <a class="dr-lnk dr-cta" href="https://wa.me/6281234567890" target="_blank">Order via WA →</a>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="mq-track" id="mqTrack"></div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="heroSection">
+  <div class="hero-bg" id="heroBg">
+    <!-- media loaded via JS -->
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-side-text">SS 2025 — DENIM CULTURE — LOCAL PRIDE</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">New Collection 2025</div>
+    <h1 class="hero-title">From East<br>to <em>Peace.</em></h1>
+    <p class="hero-sub">Brand fashion lokal Indonesia.<br>Dibangun dari identitas, semangat, dan keberanian.</p>
+    <div class="hero-btns">
+      <a class="btn btn-red" href="pages/shop.html">Lihat Koleksi →</a>
+      <a class="btn btn-outline" href="https://wa.me/6281234567890" target="_blank">Order via WA</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- LATEST PRODUCTS -->
+<section class="latest-sec" id="latest">
+  <div class="latest-inner">
+    <div class="latest-head">
+      <div>
+        <div class="section-tag">Produk Terbaru</div>
+        <h2 class="section-title">Koleksi <em>Terkini.</em></h2>
+      </div>
+      <a class="view-all" href="pages/shop.html">Lihat Semua →</a>
+    </div>
+    <div id="loadingState" style="text-align:center;padding:80px 0">
+      <div style="display:flex;gap:8px;justify-content:center;margin-bottom:12px">
+        <div style="width:7px;height:7px;background:var(--red);border-radius:50%;animation:ld .8s ease-in-out infinite"></div>
+        <div style="width:7px;height:7px;background:var(--red);border-radius:50%;animation:ld .8s ease-in-out infinite .15s"></div>
+        <div style="width:7px;height:7px;background:var(--red);border-radius:50%;animation:ld .8s ease-in-out infinite .3s"></div>
+      </div>
+      <p style="font-size:10px;color:var(--gray);letter-spacing:.2em;text-transform:uppercase">Memuat produk...</p>
+    </div>
+    <div class="prods-grid" id="prodsGrid" style="display:none"></div>
+    <style>@keyframes ld{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}</style>
+  </div>
+</section>
+
+<!-- ABOUT / BRAND STORY -->
+<section class="about-sec" id="about">
+  <div class="about-inner">
+    <div class="about-img-wrap">
+      <img class="about-img-main" id="aboutImg1" src="" alt="Garisrey Brand" style="background:var(--black3);min-height:400px"/>
+      <img class="about-img-accent" id="aboutImg2" src="" alt="Garisrey Detail" style="background:var(--black3)"/>
+      <div class="about-tag-wrap"><div class="about-tag-txt">Est. 2025</div></div>
+    </div>
+    <div class="about-text">
+      <div class="section-tag">Tentang Kami</div>
+      <h2 class="section-title">Brand Lokal<br><em>Penuh Jiwa.</em></h2>
+      <p class="about-desc">Garisrey lahir dari semangat anak muda Indonesia Timur yang ingin berbicara lewat fashion. Setiap jahitan adalah ekspresi, setiap detail adalah cerita. Kami percaya pakaian bukan sekadar kain — ia adalah identitas.</p>
+      <div class="about-stats">
+        <div><div class="stat-num" id="statProds">0</div><div class="stat-lbl">Produk Aktif</div></div>
+        <div><div class="stat-num">100%</div><div class="stat-lbl">Made in ID</div></div>
+        <div><div class="stat-num">SS25</div><div class="stat-lbl">Koleksi Kini</div></div>
+      </div>
+      <a class="btn btn-red" href="pages/shop.html">Jelajahi Koleksi</a>
+    </div>
+  </div>
+</section>
+
+<!-- LOOKBOOK / GALLERY -->
+<section class="gallery-sec" id="lookbook">
+  <div class="gallery-head">
+    <div class="section-tag">Lookbook</div>
+    <h2 class="section-title">SS 2025 <em>Campaign.</em></h2>
+  </div>
+  <div class="gallery-strip" id="galleryStrip">
+    <!-- populated by JS from product images or static assets -->
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="cta-band-inner">
+    <h2 class="cta-band-title">Siap pakai <em>Garisrey?</em><br>Order sekarang.</h2>
+    <a class="btn btn-white" href="https://wa.me/6281234567890" target="_blank">Order via WhatsApp →</a>
+  </div>
+</section>
+
+<!-- LOGO ASSETS SHOWCASE -->
+<section class="logo-sec">
+  <div class="logo-inner" id="logoShowcase">
+    <div class="logo-asset"><img id="lgLogo" src="" alt="Garisrey Logo"/></div>
+    <div class="logo-asset"><img id="lgTransparan" src="" alt="Garisrey Transparan"/></div>
+    <div class="logo-asset" style="filter:none;opacity:.6"><img id="lgStiker" src="" alt="Garisrey Stiker" style="height:56px"/></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div>
+        <img class="foot-brand-logo" id="footLogo" src="" alt="Garisrey"/>
+        <div class="foot-brand-tagline">From East to Peace</div>
+        <p class="foot-brand-desc">Brand fashion lokal Indonesia. Dibangun dari identitas, semangat, dan keberanian.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Halaman</h4>
+        <span onclick="window.scrollTo({top:0,behavior:'smooth'})">Beranda</span>
+        <a href="pages/shop.html">Shop</a>
+        <span onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</span>
+        <span onclick="document.getElementById('lookbook').scrollIntoView({behavior:'smooth'})">Lookbook</span>
+      </div>
+      <div class="foot-col">
+        <h4>Produk</h4>
+        <div id="footProds"></div>
+      </div>
+      <div class="foot-col">
+        <h4>Kontak</h4>
+        <a href="https://wa.me/6281234567890" target="_blank">WhatsApp</a>
+        <a href="https://instagram.com/garisrey" target="_blank">Instagram</a>
+        <a href="https://tiktok.com/@garisrey" target="_blank">TikTok</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span class="foot-copy">© 2025 Garisrey. Made with ❤️ in Indonesia.</span>
+      <div class="foot-soc">
+        <a class="soc-btn" href="https://instagram.com/garisrey" target="_blank">IG</a>
+        <a class="soc-btn" href="https://wa.me/6281234567890" target="_blank">WA</a>
+        <a class="soc-btn" href="https://tiktok.com/@garisrey" target="_blank">TK</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-bg" id="modalBg" style="display:none" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const SUPABASE_URL  = 'https://dhfelzylnicdskzibsqx.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_anhuhVrAepwy4EcS5nMunQ_rYBSgBGH';
+const ADMIN_EMAIL   = 'ytpremmalang10@gmail.com';
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+let products = [], wishlist = JSON.parse(localStorage.getItem('gr_wishlist')||'[]');
+let modal = {product:null,imgIdx:0,selSize:'',qty:1};
+
+const fmt = n => (n||0).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+const disc = p => p.price_ori > p.price ? Math.round((1-p.price/p.price_ori)*100) : 0;
+
+// Scroll effect
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('solid', scrollY > 60);
+},{passive:true});
+
+// Drawer
+window.toggleDrawer = () => {
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('hamBtn').classList.toggle('open');
+};
+window.closeDrawer = () => {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('hamBtn').classList.remove('open');
+};
+
+// Auth
+async function initAuth(){
+  const {data:{session}} = await sb.auth.getSession();
+  if(session?.user){
+    const u = session.user;
+    document.getElementById('navUser').style.display = 'flex';
+    document.getElementById('navAuthBtn').style.display = 'none';
+    const dl=document.getElementById('drLogin');if(dl)dl.style.display='none';
+    document.getElementById('navUName').textContent = u.user_metadata?.full_name?.split(' ')[0] || u.email.split('@')[0];
+    document.getElementById('drLogout').style.display = 'block';
+  }
+}
+window.doLogout = async () => { await sb.auth.signOut(); window.location.reload(); };
+
+// Load logo assets — coba local dulu, lalu Supabase Storage
+async function loadLogoAssets(){
+  // Local paths (relatif dari root index.html)
+  const localExts = ['jpeg','jpg','png','webp'];
+  const localBase = 'logo/logoputih';
+
+  // Coba load logoputih dari local
+  let logoUrl = null;
+  for(const ext of localExts){
+    const path = `${localBase}.${ext}`;
+    const ok = await fetch(path,{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
+    if(ok){ logoUrl = path; break; }
+  }
+  // Fallback ke Supabase
+  if(!logoUrl){
+    for(const ext of localExts){
+      const {data} = sb.storage.from('assets').getPublicUrl(`logo/logoputih.${ext}`);
+      const ok = await fetch(data.publicUrl,{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
+      if(ok){ logoUrl = data.publicUrl; break; }
+    }
+  }
+  if(logoUrl){
+    ['navLogo','loaderLogo','footLogo','lgLogo'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el){ el.src = logoUrl; if(id==='navLogo') el.style.display='block'; }
+    });
+    document.getElementById('navWordmark').style.display='none';
+  }
+
+  // logotransparan
+  const localTp = await fetch('logo/logotransparan.png',{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
+  const tpEl = document.getElementById('lgTransparan');
+  if(tpEl){
+    if(localTp){ tpEl.src='logo/logotransparan.png'; }
+    else{
+      const {data} = sb.storage.from('assets').getPublicUrl('logo/logotransparan.png');
+      tpEl.src = data.publicUrl;
+    }
+  }
+
+  // stiker
+  const localSt = await fetch('logo/stiker.png',{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
+  const stEl = document.getElementById('lgStiker');
+  if(stEl){
+    if(localSt){ stEl.src='logo/stiker.png'; }
+    else{
+      const {data} = sb.storage.from('assets').getPublicUrl('logo/stiker.png');
+      stEl.src = data.publicUrl;
+    }
+  }
+}
+
+// Marquee
+function buildMarquee(){
+  const items = ['Garisrey','From East to Peace','Made in Indonesia','Baggy Build','Local Pride','Denim Culture','SS 2025','#GarisreyID'];
+  const track = document.getElementById('mqTrack');
+  [1,2].forEach(()=>items.forEach(item=>{
+    const s = document.createElement('span'); s.className='mq-item'; s.textContent=item; track.appendChild(s);
+    const d = document.createElement('span'); d.className='mq-sep'; d.textContent='✦'; track.appendChild(d);
+  }));
+}
+
+// Load hero
+async function loadHero(){
+  const {data} = await sb.from('settings').select('value').eq('key','beranda').single();
+  const cfg = data?.value || {};
+  const heroImgs = cfg.heroImages || [];
+  const heroVid = cfg.heroVideo || null;
+  const bg = document.getElementById('heroBg');
+
+  if(heroVid){
+    bg.innerHTML = `<video src="${heroVid}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;opacity:.55"></video>`;
+  } else if(heroImgs.length){
+    bg.innerHTML = `<img src="${heroImgs[0]}" alt="Garisrey" style="width:100%;height:100%;object-fit:cover;opacity:.65"/>`;
+    if(heroImgs.length > 1){
+      let idx=0;
+      setInterval(()=>{
+        idx = (idx+1)%heroImgs.length;
+        const img = bg.querySelector('img');
+        if(img){ img.style.opacity=0; setTimeout(()=>{img.src=heroImgs[idx];img.style.opacity='.65';},400); }
+      },5000);
+    }
+  } else {
+    // Fallback: coba local video dulu, lalu local img, lalu produk pertama
+    const localVids = ['vid/1.MOV','vid/2.mp4','vid/1.mp4','vid/2.MOV'];
+    let vidLoaded = false;
+    for(const v of localVids){
+      const ok = await fetch(v,{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
+      if(ok){
+        bg.innerHTML = `<video src="${v}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;opacity:.55"></video>`;
+        vidLoaded = true; break;
+      }
+    }
+    if(!vidLoaded){
+      const localImgs = ['img/1.jpeg','img/2.jpeg','img/3.jpeg','img/4.jpeg'];
+      let imgLoaded = false;
+      for(const im of localImgs){
+        const ok = await fetch(im,{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
+        if(ok){
+          bg.innerHTML = `<img src="${im}" alt="Garisrey" style="width:100%;height:100%;object-fit:cover;opacity:.65"/>`;
+          imgLoaded = true; break;
+        }
+      }
+      if(!imgLoaded && products.length){
+        const img = (products[0].images||[])[0];
+        if(img) bg.innerHTML = `<img src="${img}" alt="Garisrey" style="width:100%;height:100%;object-fit:cover;opacity:.6"/>`;
+      }
+    }
+  }
+}
+
+// Load products
+async function loadProducts(){
+  const {data} = await sb.from('products').select('*').eq('status','active').order('created_at',{ascending:false});
+  products = data || [];
+}
+
+// Render grid (show first 4)
+function renderGrid(){
+  const grid = document.getElementById('prodsGrid');
+  document.getElementById('loadingState').style.display='none';
+  grid.style.display = 'grid';
+  if(!products.length){
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 0">
+      <p style="font-size:11px;color:var(--gray);letter-spacing:.2em;text-transform:uppercase">Belum ada produk</p>
+    </div>`;
+    return;
+  }
+  const show = products.slice(0,4);
+  grid.innerHTML = show.map(p=>`
+    <div class="prod-card" onclick="openDetail('${p.id}')">
+      <div class="prod-card-img">
+        <img src="${(p.images||[])[0]||''}" alt="${p.name}" loading="lazy"/>
+        ${p.badge?`<span class="prod-card-badge b-${p.badge}">${p.badge}</span>`:''}
+        <button class="prod-card-wish${wishlist.includes(p.id)?' wished':''}" onclick="event.stopPropagation();toggleWish('${p.id}')">${wishlist.includes(p.id)?'♥':'♡'}</button>
+        <div class="prod-card-overlay"></div>
+        <div class="prod-card-quick" onclick="event.stopPropagation()">
+          <button class="btn btn-red" style="flex:1;font-size:8px;padding:10px 12px" onclick="openDetail('${p.id}')">Lihat Detail</button>
+          <button class="btn btn-outline" style="font-size:8px;padding:10px 12px" onclick="quickWA('${p.id}')">WA</button>
+        </div>
+      </div>
+      <div class="prod-card-body">
+        <p class="prod-card-brand">${p.brand||'Garisrey'}</p>
+        <h3 class="prod-card-name">${p.name}</h3>
+        <p class="prod-card-sub">${p.tagline||''}</p>
+        <div class="prod-card-price">
+          <span class="price-main"><sup style="font-size:.55em;vertical-align:super">Rp</sup>${fmt(p.price)}</span>
+          ${p.price_ori>p.price?`<span class="price-ori">Rp${fmt(p.price_ori)}</span><span class="price-disc">-${disc(p)}%</span>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+  // footer products list
+  const fp = document.getElementById('footProds');
+  if(fp) fp.innerHTML = products.slice(0,5).map(p=>`<a onclick="openDetail('${p.id}')">${p.name}</a>`).join('');
+  // stat counter
+  animateCounter('statProds', products.length);
+}
+
+function animateCounter(id, target){
+  const el = document.getElementById(id);
+  if(!el) return;
+  let n = 0;
+  const step = Math.ceil(target/30);
+  const t = setInterval(()=>{ n = Math.min(n+step, target); el.textContent=n; if(n>=target)clearInterval(t); },50);
+}
+
+// Gallery strip from product images
+function renderGallery(){
+  const strip = document.getElementById('galleryStrip');
+  const imgs = [];
+  products.forEach(p => (p.images||[]).forEach(img=>imgs.push({img,name:p.name,id:p.id})));
+  if(!imgs.length){ strip.innerHTML='<div style="padding:0 var(--px);color:var(--gray);font-size:11px">Belum ada foto di lookbook.</div>'; return; }
+  strip.innerHTML = imgs.slice(0,8).map(({img,name,id})=>`
+    <div class="gallery-item" onclick="openDetail('${id}')">
+      <img src="${img}" alt="${name}" loading="lazy"/>
+      <div class="gallery-item-overlay"><span class="gallery-view-icon">+</span></div>
+    </div>`).join('');
+  // Also load about section images
+  if(imgs[0]) document.getElementById('aboutImg1').src = imgs[0].img;
+  if(imgs[1]) document.getElementById('aboutImg2').src = imgs[1].img;
+}
+
+// About images fallback to tag images
+async function loadAboutImages(){
+  const a1 = document.getElementById('aboutImg1');
+  const a2 = document.getElementById('aboutImg2');
+  // Coba local logo/ folder
+  const localTag1 = await fetch('logo/tagdepan.jpeg',{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
+  const localTag2 = await fetch('logo/tagbelakang.jpeg',{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
+  if(localTag1 && a1) a1.src='logo/tagdepan.jpeg';
+  if(localTag2 && a2) a2.src='logo/tagbelakang.jpeg';
+  // Fallback ke produk jika tidak ada
+  if((!a1.src||a1.src===window.location.href) && products.length){
+    const imgs = products.flatMap(p=>p.images||[]);
+    if(imgs[0]) a1.src = imgs[0];
+    if(imgs[1]) a2.src = imgs[1];
+  }
+}
+
+// Wishlist
+window.toggleWish = id => {
+  const i = wishlist.indexOf(id);
+  if(i===-1){ wishlist.push(id); showToast('Ditambahkan ke wishlist ♥','ok'); }
+  else{ wishlist.splice(i,1); showToast('Dihapus dari wishlist','info'); }
+  localStorage.setItem('gr_wishlist',JSON.stringify(wishlist));
+  renderGrid();
+  const wb = document.getElementById('wishBtn');
+  if(wb) wb.textContent = wishlist.includes(id)?'♥ Disimpan':'♡ Simpan';
+};
+
+// Modal
+window.openDetail = id => {
+  const p = products.find(x=>x.id===id); if(!p) return;
+  modal = {product:p,imgIdx:0,selSize:'',qty:1};
+  renderModal();
+  document.getElementById('modalBg').style.display='flex';
+  document.body.style.overflow='hidden';
+};
+window.closeModal = () => { document.getElementById('modalBg').style.display='none'; document.body.style.overflow=''; };
+
+function renderModal(){
+  const p = modal.product; const imgs = p.images||[];
+  document.getElementById('modalBox').innerHTML = `
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-gal">
+      <div class="modal-main"><img id="mMain" src="${imgs[0]||''}" alt="${p.name}"/></div>
+      ${imgs.length>1?`<div class="modal-thumbs">${imgs.map((img,i)=>`<img src="${img}" class="modal-thumb${i===0?' on':''}" onclick="setMImg(${i})"/>`).join('')}</div>`:''}
+    </div>
+    <div class="modal-info">
+      <p class="m-brand">${p.brand||'Garisrey'}</p>
+      <h2 class="m-name">${p.name}</h2>
+      <p class="m-tag">${p.tagline||''}</p>
+      <p class="m-desc">${p.description||''}</p>
+      ${p.features?.length?`<div class="m-feats">${p.features.map(f=>`<span class="m-feat">${f}</span>`).join('')}</div>`:''}
+      <div style="margin-bottom:18px">
+        <div class="m-price-lbl">Harga</div>
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <span class="m-price"><sup>Rp</sup>${fmt(p.price)}</span>
+          ${p.price_ori>p.price?`<span class="m-price-ori">Rp${fmt(p.price_ori)}</span>`:''}
+        </div>
+      </div>
+      ${p.sizes?.length?`
+        <div class="m-sec-lbl"><span>Pilih Ukuran</span><span id="mSizeLbl" style="color:var(--red)"></span></div>
+        <div class="m-sizes">${p.sizes.map(s=>`<button class="m-sz" onclick="selSize('${s}')">${s}</button>`).join('')}</div>`:''}
+      <div class="m-qty-row">
+        <span class="m-sec-lbl" style="margin-bottom:0">Jumlah</span>
+        <div class="m-qty-ctrl">
+          <button class="m-qty-btn" onclick="chgQty(-1)">−</button>
+          <span class="m-qty-val" id="mQty">1</span>
+          <button class="m-qty-btn" onclick="chgQty(1)">+</button>
+        </div>
+      </div>
+      <div class="m-btns">
+        <button class="btn btn-red" onclick="buyWA()">Beli via WhatsApp →</button>
+        <button class="btn btn-outline" id="wishBtn" onclick="toggleWish('${p.id}')">${wishlist.includes(p.id)?'♥ Disimpan':'♡ Simpan'}</button>
+      </div>
+    </div>`;
+}
+window.setMImg = i => {
+  modal.imgIdx=i;
+  document.getElementById('mMain').src = modal.product.images[i]||'';
+  document.querySelectorAll('.modal-thumb').forEach((t,idx)=>t.classList.toggle('on',idx===i));
+};
+window.selSize = s => {
+  modal.selSize=s;
+  document.querySelectorAll('.m-sz').forEach(b=>b.classList.toggle('on',b.textContent===s));
+  const l=document.getElementById('mSizeLbl');if(l)l.textContent=s;
+};
+window.chgQty = d => { modal.qty=Math.max(1,Math.min(10,modal.qty+d)); document.getElementById('mQty').textContent=modal.qty; };
+window.buyWA = () => {
+  const p=modal.product;
+  if(p.sizes?.length&&!modal.selSize){showToast('Pilih ukuran dulu!','err');return;}
+  const txt=`Halo Garisrey! 👋\n\nSaya mau order:\n\n🛍 Produk: ${p.name}\n📏 Ukuran: ${modal.selSize||'—'}\n🔢 Jumlah: ${modal.qty}\n💰 Total: Rp${fmt(p.price*modal.qty)}\n\nMohon info ketersediaan. Terima kasih!`;
+  window.open('https://wa.me/6281234567890?text='+encodeURIComponent(txt),'_blank');
+};
+window.quickWA = id => {
+  const p=products.find(x=>x.id===id);if(!p)return;
+  window.open('https://wa.me/6281234567890?text='+encodeURIComponent(`Halo Garisrey! 👋\nSaya tertarik dengan *${p.name}*.\nBoleh info ketersediaan dan cara order?`),'_blank');
+};
+
+// Toast
+window.showToast = (msg,type='info') => {
+  const icons={ok:'✅',err:'❌',info:'ℹ️'};
+  const el=document.createElement('div');el.className=`toast t-${type}`;el.textContent=icons[type]+' '+msg;
+  document.getElementById('toastWrap').appendChild(el);setTimeout(()=>el.remove(),3200);
+};
+
+// INIT
+async function init(){
+  buildMarquee();
+  await initAuth();
+  await loadLogoAssets();
+  await loadProducts();
+  renderGrid();
+  renderGallery();
+  loadAboutImages();
+  await loadHero();
+
+  // Hide loader
+  setTimeout(()=>{
+    document.getElementById('pageLoader').classList.add('out');
+    setTimeout(()=>document.getElementById('pageLoader').remove(),600);
+  },800);
+
+  // Realtime
+  sb.channel('products-live').on('postgres_changes',{event:'*',schema:'public',table:'products'},async()=>{
+    await loadProducts(); renderGrid(); renderGallery();
+  }).subscribe();
+}
+
+init();
+</script>
+</body>
+</html>
